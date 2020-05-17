@@ -117,7 +117,8 @@ export default new Router({
                    meta: { title: '日志信息维护' }
                 },
 
-                //功能页面
+
+                //其他功能页面
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
