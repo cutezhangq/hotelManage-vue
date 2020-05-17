@@ -19,6 +19,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
                     meta: { title: '系统首页' }
                 },
+                // 基础信息管理
                 {
                     path:'/room_type',
                     component: () => import('../components/page/BasicInfoManage/room_type.vue'),
@@ -46,6 +47,77 @@ export default new Router({
                      meta: { title: '会员管理' }
                 },
 
+                // 客房管理
+                {
+                  path:'/room_info',
+                  component: () => import('../components/page/RoomManage/room_info.vue'),
+                   meta: { title: '客房管理' }
+                },
+                
+                // 房客管理
+                {
+                  path:'/order_info',
+                  component: () => import('../components/page/tenantManage/order_info.vue'),
+                   meta: { title: '客房预定' }
+                },
+                {
+                  path:'/checkin_info',
+                  component: () => import('../components/page/tenantManage/checkin_info.vue'),
+                   meta: { title: '客房入住' }
+                },
+                {
+                  path:'/replace-room',
+                  component: () => import('../components/page/tenantManage/replace-room.vue'),
+                   meta: { title: '换房' }
+                },
+                {
+                  path:'/bill_info',
+                  component: () => import('../components/page/tenantManage/bill_info.vue'),
+                   meta: { title: '退房结帐' }
+                },
+
+                //消费管理
+                {
+                  path:'/cost_info',
+                  component: () => import('../components/page/costInfoManage/cost_info.vue'),
+                   meta: { title: '消费管理' }
+                },
+
+                // 报表管理
+                {
+                  path:'/order_info_report',
+                  component: () => import('../components/page/reportManage/order_info_report.vue'),
+                   meta: { title: '预定客人报表' }
+                },
+                {
+                  path:'/checkin_info_report',
+                  component: () => import('../components/page/reportManage/checkin_info_report.vue'),
+                   meta: { title: '在住客人报表' }
+                },
+                {
+                  path:'/bill_info_report',
+                  component: () => import('../components/page/reportManage/bill_info_report.vue'),
+                   meta: { title: '离店客人报表' }
+                },
+                {
+                  path:'/cost_info_report',
+                  component: () => import('../components/page/reportManage/cost_info_report.vue'),
+                   meta: { title: '财务进账报表' }
+                },
+
+                // 系统管理
+                {
+                  path:'/user_info',
+                  component: () => import('../components/page/systemManage/user_info.vue'),
+                   meta: { title: '用户信息维护' }
+                },
+                {
+                  path:'/log_info',
+                  component: () => import('../components/page/systemManage/log_info.vue'),
+                   meta: { title: '日志信息维护' }
+                },
+
+                //功能页面
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),

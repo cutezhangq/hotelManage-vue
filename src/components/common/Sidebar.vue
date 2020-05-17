@@ -90,77 +90,77 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'room_info',
                     title: '客房管理'
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'tenantManage',
                     title: '房客管理',
                     subs: [
                         {
-                            index: 'form',
+                            index: 'order_info',
                             title: '客房预定'
                         },
                         {
-                            index: 'form',
+                            index: 'checkin_info',
                             title: '客房入住'
                         },
                         {
-                            index: 'form',
+                            index: 'replace-room',
                             title: '换房'
                         },
                         {
-                            index: 'form',
+                            index: 'bill_info',
                             title: '退房结帐'
                         },
                     ]
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'cost_info',
                     title: '消费管理'
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'reportManage',
                     title: '报表管理',
                     subs: [
                         {
-                            index: 'form',
+                            index: 'order_info_report',
                             title: '预定客人报表'
                         },
-                         {
-                            index: 'form',
+                        {
+                            index: 'checkin_info_report',
                             title: '在住客人报表'
                         },
-                         {
-                            index: 'form',
+                        {
+                            index: 'bill_info_report',
                             title: '离店客人报表'
                         },
-                         {
-                            index: 'form',
+                        {
+                            index: 'cost_info_report',
                             title: '财务进账报表'
                         }
                     ]
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'systemManage',
                     title: '系统管理',
                     subs: [
                         {
-                            index: 'form',
+                            index: 'user_info',
                             title: '用户信息维护'
                         },
                         {
-                            index: 'form',
+                            index: 'log_info',
                             title: '日志信息维护'
                         }
                     ]
                 },
 
-
+                //其他功能页面
                 {
                     icon: 'el-icon-lx-cascades',
                     index: 'table',
