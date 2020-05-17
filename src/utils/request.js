@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {API} from '@/api/index'
 
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
@@ -32,3 +33,31 @@ service.interceptors.response.use(
 );
 
 export default service;
+
+//封装请求
+function request(url, method, data, header = {}){
+  return new Promise((resolve,reject)=>{
+    this.$axios({
+      url: API + url,
+      method,
+      header:{
+        'content-type':'application/json; charset=utf-8'
+      },
+      data:{
+        data
+      }
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err =>{
+        reject(false);
+      })
+    })
+  })
+}
+export function get(url,data){
+  return request(url, "GET", data);
+}
+export function post(url,data){
+  return request(url,"POST",data);
+}

@@ -7,3 +7,5 @@ export const fetchData = query => {
         params: query
     });
 };
+
+export const API = "http://localhost:8080/hotelManage"

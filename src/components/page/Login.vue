@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import {API} from '@/api/index'
+import {get} from '@/utils/request'
+
 export default {
     data: function() {
         return {
@@ -41,7 +44,27 @@ export default {
             },
         };
     },
+    beforeMount:{},
     methods: {
+        //验证用户名、密码、权限
+        checkUserInfo(){
+          // this.$axios({
+          //   url:API+'/dao.show_userInfo',
+          //   method: 'get',
+          //   data:{
+          //     username:"",
+          //     password:"",
+          //     authority:1,
+          //   }.then((res) => {
+          //     console.log('登陆成功');
+          //   })
+          // })
+          get('/dao.show_userInfo',{
+            username:"",
+            password:"",
+            authority:1,
+          })
+        },
         submitForm() {
             this.$refs.login.validate(valid => {
                 if (valid) {
