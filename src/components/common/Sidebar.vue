@@ -8,8 +8,7 @@
             text-color="#bfcbd9"
             active-text-color="#20a0ff"
             unique-opened
-            router
-        >
+            router>
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
@@ -89,12 +88,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-office-building',
                     index: 'room_info',
                     title: '客房管理'
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-user',
                     index: 'tenantManage',
                     title: '房客管理',
                     subs: [
@@ -117,12 +116,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-shopping-cart-1',
                     index: 'cost_info',
                     title: '消费管理'
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-tickets',
                     index: 'reportManage',
                     title: '报表管理',
                     subs: [
@@ -145,7 +144,7 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-setting',
                     index: 'systemManage',
                     title: '系统管理',
                     subs: [
@@ -161,11 +160,6 @@ export default {
                 },
 
                 //其他功能页面
-                {
-                    icon: 'el-icon-lx-cascades',
-                    index: 'table',
-                    title: '基础表格'
-                },
                 {
                     icon: 'el-icon-lx-copy',
                     index: 'tabs',
@@ -199,6 +193,11 @@ export default {
                             title: '文件上传'
                         }
                     ]
+                },
+                {
+                    icon: 'el-icon-lx-cascades',
+                    index: 'table',
+                    title: '基础表格'
                 },
                 {
                     icon: 'el-icon-lx-emoji',
@@ -244,11 +243,6 @@ export default {
                             title: '404页面'
                         }
                     ]
-                },
-                {
-                    icon: 'el-icon-lx-redpacket_fill',
-                    index: '/donate',
-                    title: '支持作者'
                 }
             ]
         };

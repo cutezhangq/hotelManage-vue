@@ -12,15 +12,7 @@
   <a href="https://github.com/lin-xin/vue-manage-system/releases">
     <img src="https://img.shields.io/github/release/lin-xin/vue-manage-system.svg" alt="GitHub release">
   </a>
-  <a href="https://lin-xin.gitee.io/example/work/#/donate">
-    <img src="https://img.shields.io/badge/%24-donate-ff69b4.svg" alt="donate">
-  </a>
 
-The web management system solution based on Vue2 and Element-UI。[live demo](https://lin-xin.gitee.io/example/work/)
-
-## Donation
-
-![WeChat](https://lin-xin.gitee.io/images/weixin.jpg)
 
 ## Preface
 
@@ -47,8 +39,8 @@ The scheme as a set of multi-function background frame templates, suitable for m
 
 ## Installation steps
 
-    git clone https://github.com/lin-xin/vue-manage-system.git		// Clone templates
-    cd vue-manage-system											// Enter template directory
+    git clone https://gitee.com/zhuangzhoudekun/hotelManage-vue.git		// Clone templates
+    cd hotelManage-vue											// Enter template directory
     npm install													// Installation dependency
 
 ## Local development
@@ -191,6 +183,3 @@ Finally,enter 'src/components/common/Sidebar.vue' and find el-menu Tags,delete '
 
 ![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/wms2.png)
 
-## License
-
-[MIT](https://github.com/lin-xin/vue-manage-system/blob/master/LICENSE)
