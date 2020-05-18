@@ -48,24 +48,13 @@ export default {
     methods: {
         //验证用户名、密码、权限
         checkUserInfo(){
-          // this.$axios({
-          //   url:API+'/dao.show_userInfo',
-          //   method: 'get',
-          //   data:{
-          //     username:"",
-          //     password:"",
-          //     authority:1,
-          //   }.then((res) => {
-          //     console.log('登陆成功');
-          //   })
-          // })
-          console.log('----00---');
-          const data  = get('/dao.show_userInfo',{
+          get('/dao.show_userInfo',{
             username:"admin",
             password:"123456",
             authority:1,
+          }).then( data=>{
+             console.log('---data.data----',data.data);
           })
-          console.log('-------',data);
         },
         submitForm() {
           this.checkUserInfo();
