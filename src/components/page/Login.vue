@@ -59,7 +59,6 @@ export default {
           //     console.log('登陆成功');
           //   })
           // })
-          console.log('----00---');
           const data  = get('/dao.show_userInfo',{
             username:"admin",
             password:"123456",
