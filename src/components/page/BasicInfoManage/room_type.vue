@@ -8,7 +8,7 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-            <!-- 删除、搜索 -->
+            <!-- 新增、删除、搜索 -->
             <div class="handle-box">
                 <el-button
                     type="danger"
@@ -22,12 +22,14 @@
                     class="handle-del mr10"
                     @click="addDate"
                 >新增数据</el-button>
-                <el-select v-model="query.address" placeholder="关键词" class="handle-select mr10">
-                    <el-option key="1" label="房间类型" value="房间类型"></el-option>
-                    <el-option key="2" label="人数" value="人数"></el-option>
-                     <el-option key="3" label="描述" value="描述"></el-option>
+                <!-- 搜索 关键词 -->
+                <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
+                    <el-option key="1" label="房间类型ID" value="room_type_id"></el-option>
+                    <el-option key="2" label="房间类型" value="type"></el-option>
+                    <el-option key="3" label="人数" value="number"></el-option>
+                    <el-option key="4" label="描述" value="details"></el-option>
                 </el-select>
-                <el-input v-model="query.name" placeholder="输入搜索信息..." class="handle-input mr10"></el-input>
+                <el-input v-model="query.queryContent" placeholder="输入搜索信息..." class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表格的表头：表内容通过prop绑定数据 -->
@@ -37,8 +39,7 @@
                 class="table"
                 ref="multipleTable"
                 header-cell-class-name="table-header"
-                @selection-change="handleSelectionChange"
-            >
+                @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="room_type_id" label="客房编号" width="130" align="center"></el-table-column>
                 <el-table-column prop="type" label="客房类型名" align="center"></el-table-column>
@@ -75,11 +76,8 @@
         </div>
 
         <!-- 新增弹出框 -->
-        <el-dialog title="编辑" :visible.sync="addVisible" width="30%">
+        <el-dialog title="新增" :visible.sync="addVisible" width="30%">
             <el-form ref="form" :model="add_form" label-width="70px">
-                <!-- <el-form-item label="客房编号">
-                    <el-input v-model=""></el-input>
-                </el-form-item> -->
                 <el-form-item label="客房类型名">
                     <el-input v-model="add_form.type"></el-input>
                 </el-form-item>
@@ -129,10 +127,10 @@ export default {
     data() {
         return {
             query: {
-                address: '',
-                name: '',
+                queryContent: '',
+                queryName: '',
                 pageIndex: 1,
-                pageSize: 10
+                pageSize: 5,
             },
             tableData: [],
             multipleSelection: [],
@@ -146,24 +144,14 @@ export default {
               number: "",
               details: "",
             }, 
-            idx: -1,
+            idx: -1,  //当前修改条目的id
             id: -1
         };
     },
     created() {
       this.getRoom_type();
-      // this.getData();
     },
     methods: {
-        // 获取 easy-mock 的模拟数据
-        // getData() {
-        //     fetchData(this.query).then(res => {
-        //         console.log(res);
-        //         this.tableData = res.list;
-        //         this.pageTotal = res.pageTotal || 50;
-        //     });
-        // },
-
         //获取roomType数据
         getRoom_type(){
           get(`/dao.show_roomType`)
@@ -176,8 +164,15 @@ export default {
         },
         // 触发搜索按钮
         handleSearch() {
-            this.$set(this.query, 'pageIndex', 1);
-            this.getData();
+          get(`/dao.show_roomType?${this.query.queryName}=${this.query.queryContent}`)
+          .then( data =>{
+            if(data.code === 200){
+              this.tableData = data.data;
+              this.pageTotal = data.data.length || 0;
+            }
+          })
+            //更新视图
+            // this.$set(this.query, 'pageIndex', 1);
         },
         //添加数据
         addDate(){
@@ -211,6 +206,7 @@ export default {
             if(data.code === 200){
               this.$message.success('删除成功');
               this.tableData.splice(index, 1);
+              this.getRoom_type();
             }
           })
         },
@@ -231,31 +227,52 @@ export default {
         delAllSelection() {
             const length = this.multipleSelection.length;
             let str = '';
+            let strIds = '';
             this.delList = this.delList.concat(this.multipleSelection);
-            for (let i = 0; i < length; i++) {
-                str += this.multipleSelection[i].name + ' ';
+            if(length > 0){
+              for (let i = 0; i < length; i++) {
+                  str += this.multipleSelection[i].type + ' ';
+                  strIds += this.multipleSelection[i].room_type_id + ',';
+              }
+              this.$message.error(`删除了${str}`);
+              this.multipleSelection = [];
+              // console.log(typeof(strIds));
+              //发送批量删除请求
+
+
+            }else{
+              this.$message.error(`请选择要删除的条目`);
             }
-            this.$message.error(`删除了${str}`);
-            this.multipleSelection = [];
         },
 
         // 编辑操作
         handleEdit(index, row) {
             this.idx = index;
-            this.form = row;
+            this.form = row;  //当前行
             this.editVisible = true;
         },
 
         // 保存编辑
         saveEdit() {
-            this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.$set(this.tableData, this.idx, this.form);
-            this.getRoom_type();
+          let curEdit_row = this.form;
+          post(`/dao.update_roomType?room_type_id=${curEdit_row.room_type_id}
+                &type=${curEdit_row.type}
+                &number=${curEdit_row.number}
+                &details=${curEdit_row.details}`
+          )
+          .then( data =>{
+            if(data.code === 200){
+              this.editVisible = false;
+              this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+              this.$set(this.tableData, this.idx, this.form);
+              this.getRoom_type();
+            }
+          })
         },
 
         // 分页导航
         handlePageChange(val) {
+            //更新视图
             this.$set(this.query, 'pageIndex', val);
             this.getData();
         }
