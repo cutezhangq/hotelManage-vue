@@ -1,13 +1,15 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">SJU酒店管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+                <!-- 用户名 -->
                 <el-form-item prop="username">
                     <el-input v-model="param.username" placeholder="username">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
+                <!-- 密码 -->
                 <el-form-item prop="password">
                     <el-input
                         type="password"
@@ -18,25 +20,35 @@
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
+                <!-- 用户身份选择 -->
+                <el-form-item prop="authority_radio">
+                  <el-radio-group v-model="authority_radio">
+                    <el-radio :label="1">超级管理员</el-radio>
+                    <el-radio :label="2">经理</el-radio>
+                    <el-radio :label="3">前台人员</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <!-- <p class="login-tips">Tips : </p> -->
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
-import {API} from '@/api/index'
-import {get} from '@/utils/request'
+import {get,post} from '@/utils/request'
 
 export default {
     data: function() {
         return {
+            authority_radio: 1,
+            cur_username:"",
             param: {
-                username: 'admin',
-                password: '123456',
+                username: '',
+                password: '',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -46,23 +58,28 @@ export default {
     },
     beforeMount:{},
     methods: {
-        //验证用户名、密码、权限
-        checkUserInfo(){
-          get('/dao.show_userInfo',{
-            username:"admin",
-            password:"123456",
-            authority:1,
-          }).then( data=>{
-             console.log('---data.data----',data.data);
+        //验证用户名、密码、权限是否匹配
+        loginIn(){
+          let _this = this;
+          get(`/dao.show_userInfo?username=${ _this.param.username}
+              &password=${_this.param.password}
+              &authority=${_this.authority_radio}`
+          )
+          .then( data =>{
+            if(data.code === 200){
+              this.$message.success('登录成功');
+              localStorage.setItem('ms_username', _this.param.username);
+              this.$router.push('/');
+            }
+            else{
+              this.$message.error('用户名或密码或身份 错误');
+            }
           })
         },
         submitForm() {
-          this.checkUserInfo();
             this.$refs.login.validate(valid => {
                 if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+                    this.loginIn();
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');
@@ -87,7 +104,8 @@ export default {
     line-height: 50px;
     text-align: center;
     font-size: 20px;
-    color: #fff;
+    /* color: #fff; */
+    color: #409EFF;
     border-bottom: 1px solid #ddd;
 }
 .ms-login {
