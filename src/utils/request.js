@@ -5,7 +5,11 @@ const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
     // baseURL: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
-    timeout: 5000
+    timeout: 5000,
+    headers: {
+      'Content-Type': "application/json;charset=utf-8",
+      'Access-Control-Allow-Origin':'*'
+    }
 });
 
 service.interceptors.request.use(
@@ -35,24 +39,23 @@ service.interceptors.response.use(
 export default service;
 
 //封装请求
-function request(url, method, data, header = {}){
+function request(url, method, data, headers={}){
   return new Promise((resolve,reject)=>{
-    this.$axios({
+    axios({
       url: API + url,
       method,
-      header:{
-        'content-type':'application/json; charset=utf-8'
-      },
-      data:{
-        data
+      data,
+      headers: {
+        'Content-Type': "application/json;charset=utf-8",
+        'Access-Control-Allow-Origin':'*'
       }
+     })
       .then(res => {
         resolve(res.data);
       })
       .catch(err =>{
         reject(false);
       })
-    })
   })
 }
 export function get(url,data){

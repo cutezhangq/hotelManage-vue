@@ -59,13 +59,16 @@ export default {
           //     console.log('登陆成功');
           //   })
           // })
-          get('/dao.show_userInfo',{
-            username:"",
-            password:"",
+          console.log('----00---');
+          const data  = get('/dao.show_userInfo',{
+            username:"admin",
+            password:"123456",
             authority:1,
           })
+          console.log('-------',data);
         },
         submitForm() {
+          this.checkUserInfo();
             this.$refs.login.validate(valid => {
                 if (valid) {
                     this.$message.success('登录成功');
