@@ -185,7 +185,6 @@
 <script>
 import {get,post} from '@/utils/request';
 import { fetchData } from '@/api/index';
-
 export default {
     name: 'member_info',
     data() {
