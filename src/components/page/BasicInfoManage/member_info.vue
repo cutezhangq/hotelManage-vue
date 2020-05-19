@@ -138,7 +138,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="会员ID">
-                    <el-input v-model="form.member_id"></el-input>
+                    <el-input v-model="form.member_id" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="姓名">
                     <el-input v-model="form.name"></el-input>

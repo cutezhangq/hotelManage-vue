@@ -84,8 +84,8 @@
         <!-- 新增弹出框 -->
         <el-dialog title="新增" :visible.sync="addVisible" width="30%">
             <el-form ref="form" :model="add_form" label-width="70px">
-                <el-form-item label="商品名称">
-                    <el-input v-model="add_form.goods_name"></el-input>
+                <el-form-item label="商品ID">
+                    <el-input v-model="add_form.goods_id"></el-input>
                 </el-form-item>
                 <el-form-item label="商品类别">
                     <el-input v-model="add_form.type_id"></el-input>
@@ -112,6 +112,9 @@
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
+               <el-form-item label="商品名称">
+                    <el-input v-model="form.goods_name" :disabled="true"></el-input>
+                </el-form-item>
                 <el-form-item label="商品名称">
                     <el-input v-model="form.goods_name"></el-input>
                 </el-form-item>
