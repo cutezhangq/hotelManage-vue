@@ -67,12 +67,13 @@ export default {
           )
           .then( data =>{
             if(data.code === 200){
-              this.$message.success('登录成功');
-              localStorage.setItem('ms_username', _this.param.username);
-              this.$router.push('/');
-            }
-            else{
-              this.$message.error('用户名或密码或身份 错误');
+              if(data.data.infoList.length > 0){
+                this.$message.success('登录成功');
+                localStorage.setItem('ms_username', _this.param.username);
+                this.$router.push('/');
+              }else{
+                this.$message.error('用户名或密码或身份 错误');
+              }
             }
           })
         },

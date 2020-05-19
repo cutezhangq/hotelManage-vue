@@ -155,13 +155,15 @@ export default {
     methods: {
         //获取roomType数据
         getRoom_type(){
-          get(`/dao.show_roomType?index=${this.query.pageIndex}`)
+          get(`/dao.show_roomType?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
           .then( data =>{
             if(data.code === 200){
-              this.tableData = data.data.infoList;
-              this.pageTotal = data.data.count || 0;  //总条数
-              this.query.pageIndex = data.data.index;  //当前页号
-              this.query.pageSize = data.data.pageSize  //限制每页数据条数
+              if(data.data.infoList.length > 0){
+                this.tableData = data.data.infoList;
+                this.pageTotal = data.data.count || 0;  //总条数
+                this.query.pageIndex = data.data.index;  //当前页号
+                this.query.pageSize = data.data.pageSize  //限制每页数据条数
+              }
             }
           })
         },
