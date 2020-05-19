@@ -150,11 +150,11 @@ export default {
         };
     },
     created() {
-      this.getRoom_type();
+      this.getDate();
     },
     methods: {
         //获取roomType数据
-        getRoom_type(){
+        getDate(){
           get(`/dao.show_roomType?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
           .then( data =>{
             if(data.code === 200){
@@ -202,7 +202,7 @@ export default {
             if(data.code === 200){
               this.addVisible =  false;
               this.$message.success(`新增一条数据成功`);
-              this.getRoom_type();
+              this.getDate();
             }
           })
         },
@@ -220,7 +220,7 @@ export default {
             if(data.code === 200){
               this.$message.error(`删除了${this.tableData[index].type},1条数据`);
               this.tableData.splice(index, 1);
-              this.getRoom_type();
+              this.getDate();
             }
           })
         },
@@ -255,7 +255,7 @@ export default {
                   let delDateNum = strIds.match(/,/g).length;
                   this.$message.error(`批量删除了${delDateNum}条数据`);
                   this.multipleSelection = [];
-                  this.getRoom_type();
+                  this.getDate();
                 }
               })
 
@@ -284,7 +284,7 @@ export default {
               this.editVisible = false;
               this.$message.success(`修改第 ${this.idx + 1} 行成功`);
               this.$set(this.tableData, this.idx, this.form);
-              this.getRoom_type();
+              this.getDate();
             }
           })
         },
@@ -294,7 +294,7 @@ export default {
           //更新视图
           // this.$set(this.query, 'pageIndex', val);
           this.query.pageIndex = val;
-          this.getRoom_type();
+          this.getDate();
         }
     }
 };
