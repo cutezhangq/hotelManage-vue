@@ -28,6 +28,7 @@
                     <el-option key="2" label="房间类型" value="type"></el-option>
                     <el-option key="3" label="人数" value="number"></el-option>
                     <el-option key="4" label="描述" value="details"></el-option>
+                    <el-option key="5" label="——全部——" value="0"></el-option>
                 </el-select>
                 <el-input v-model="query.queryContent" placeholder="输入搜索信息..." class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
@@ -154,25 +155,36 @@ export default {
     methods: {
         //获取roomType数据
         getRoom_type(){
-          get(`/dao.show_roomType`)
+          get(`/dao.show_roomType?index=${this.query.pageIndex}`)
           .then( data =>{
             if(data.code === 200){
-              this.tableData = data.data;
-              this.pageTotal = data.data.length || 0;
+              this.tableData = data.data.infoList;
+              this.pageTotal = data.data.count || 0;  //总条数
+              this.query.pageIndex = data.data.index;  //当前页号
+              this.query.pageSize = data.data.pageSize  //限制每页数据条数
             }
           })
         },
         // 触发搜索按钮
         handleSearch() {
-          get(`/dao.show_roomType?${this.query.queryName}=${this.query.queryContent}`)
+          let query_name = this.query.queryName;
+          let query_content = this.query.queryContent;
+          if(query_name === 0){query_content = ""}
+          get(`/dao.show_roomType?${query_name}=${query_content}`)
           .then( data =>{
             if(data.code === 200){
-              this.tableData = data.data;
-              this.pageTotal = data.data.length || 0;
+              if(data.data.infoList.length > 0){
+                 this.tableData = data.data.infoList;
+                this.pageTotal = data.data.count || 0;
+                this.query.pageIndex = data.data.index;  
+                this.query.pageSize = data.data.pageSize
+              }else{
+                 this.$message.error(`数据库没有相关数据`);
+              }
             }
           })
-            //更新视图
-            // this.$set(this.query, 'pageIndex', 1);
+          //更新视图
+          // this.$set(this.query, 'pageIndex', 1);
         },
         //添加数据
         addDate(){
@@ -204,7 +216,7 @@ export default {
           get(`/dao.del_roomType?room_type_id=${cur_id}`)
           .then(data =>{
             if(data.code === 200){
-              this.$message.success('删除成功');
+              this.$message.error(`删除了${this.tableData[index].type},1条数据`);
               this.tableData.splice(index, 1);
               this.getRoom_type();
             }
@@ -234,11 +246,16 @@ export default {
                   str += this.multipleSelection[i].type + ' ';
                   strIds += this.multipleSelection[i].room_type_id + ',';
               }
-              this.$message.error(`删除了${str}`);
-              this.multipleSelection = [];
-              // console.log(typeof(strIds));
               //发送批量删除请求
-
+              get(`/dao.del_roomType?room_type_id=${strIds}`)
+              .then(data =>{
+                if(data.code === 200){
+                  let delDateNum = strIds.match(/,/g).length;
+                  this.$message.error(`批量删除了${delDateNum}条数据`);
+                  this.multipleSelection = [];
+                  this.getRoom_type();
+                }
+              })
 
             }else{
               this.$message.error(`请选择要删除的条目`);
@@ -272,9 +289,10 @@ export default {
 
         // 分页导航
         handlePageChange(val) {
-            //更新视图
-            this.$set(this.query, 'pageIndex', val);
-            this.getData();
+          //更新视图
+          // this.$set(this.query, 'pageIndex', val);
+          this.query.pageIndex = val;
+          this.getRoom_type();
         }
     }
 };
