@@ -37,7 +37,7 @@ export default {
         line-height: 1;
         font-size: 250px;
         font-weight: bolder;
-        color: #f02d2d;
+        color: #2d8cf0;
     }
     .error-code span{
         color: #00a854;

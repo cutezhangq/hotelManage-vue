@@ -70,6 +70,7 @@ export default {
               if(data.data.infoList.length > 0){
                 this.$message.success('登录成功');
                 localStorage.setItem('ms_username', _this.param.username);
+                localStorage.setItem('authority', _this.authority_radio);
                 this.$router.push('/');
               }else{
                 this.$message.error('用户名或密码或身份 错误');
