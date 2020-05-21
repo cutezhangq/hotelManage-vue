@@ -220,12 +220,12 @@ export default {
         },
         //保存新增
         saveAdd(){
-          post(`/dao.add_goodsInfo?goods_name=${this.add_form.goods_name}
-                &type_id=${this.add_form.type_id}
-                &price=${this.add_form.price}
-                &discount=${this.add_form.discount}
-                &unit=${this.add_form.unit}
-                &details=${this.add_form.details}
+          post(`/dao.add_goodsInfo?goods_name=${this.add_form.goods_name}`+
+                `&type_id=${this.add_form.type_id}`+
+                `&price=${this.add_form.price}`+
+                `&discount=${this.add_form.discount}`+
+                `&unit=${this.add_form.unit}`+
+                `&details=${this.add_form.details}
                 `
           )
           .then( data =>{
@@ -243,7 +243,7 @@ export default {
         },
 
         //删除一条数据
-        delOne_roomType(index){
+        delOneDate(index){
           let cur_id = this.tableData[index].goods_id;
           get(`/dao.del_goodsInfo?goods_id=${cur_id}`)
           .then(data =>{
@@ -262,7 +262,7 @@ export default {
                 type: 'warning'
             })
             .then(() => {
-              this.delOne_roomType(index);
+              this.delOneDate(index);
             })
             .catch(() => {});
         },
@@ -304,13 +304,14 @@ export default {
         // 保存编辑
         saveEdit() {
           let curEdit_row = this.form;
-          post(`/dao.update_goodsInfo?goods_id=${curEdit_row.goods_id}
-                &goods_name=${curEdit_row.goods_name}
-                &type_id=${curEdit_row.type_id}
-                &price=${curEdit_row.price}
-                &discount=${curEdit_row.discount}
-                &unit=${curEdit_row.unit}
-                &details=${curEdit_row.details}`
+          post(`/dao.update_goodsInfo?goods_id=${curEdit_row.goods_id}`+
+                `&goods_name=${curEdit_row.goods_name}`+
+                `&type_id=${curEdit_row.type_id}`+
+                `&price=${curEdit_row.price}`+
+                `&discount=${curEdit_row.discount}`+
+                `&unit=${curEdit_row.unit}`+
+                `&details=${curEdit_row.details}
+                `
           )
           .then( data =>{
             if(data.code === 200){

@@ -194,9 +194,10 @@ export default {
         },
         //保存新增
         saveAdd(){
-          post(`/dao.add_roomType?type=${this.add_form.type}
-                &number=${this.add_form.number}
-                &details=${this.add_form.details}`
+          post(`/dao.add_roomType?type=${this.add_form.type}`+
+                `&number=${this.add_form.number}`+
+                `&details=${this.add_form.details}
+                `
           )
           .then( data =>{
             if(data.code === 200){
@@ -213,7 +214,7 @@ export default {
         },
 
         //删除一条数据
-        delOne_roomType(index){
+        delOneDate(index){
           let cur_id = this.tableData[index].room_type_id;
           get(`/dao.del_roomType?room_type_id=${cur_id}`)
           .then(data =>{
@@ -232,7 +233,7 @@ export default {
                 type: 'warning'
             })
             .then(() => {
-              this.delOne_roomType(index);
+              this.delOneDate(index);
             })
             .catch(() => {});
         },
@@ -274,10 +275,11 @@ export default {
         // 保存编辑
         saveEdit() {
           let curEdit_row = this.form;
-          post(`/dao.update_roomType?room_type_id=${curEdit_row.room_type_id}
-                &type=${curEdit_row.type}
-                &number=${curEdit_row.number}
-                &details=${curEdit_row.details}`
+          post(`/dao.update_roomType?room_type_id=${curEdit_row.room_type_id}`+
+                `&type=${curEdit_row.type}`+
+                `&number=${curEdit_row.number}`+
+                `&details=${curEdit_row.details}
+                `
           )
           .then( data =>{
             if(data.code === 200){

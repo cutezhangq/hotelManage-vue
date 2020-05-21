@@ -261,7 +261,7 @@ export default {
     },
 
     //删除一条数据
-    delOne_roomType(index){
+    delOneDate(index){
       let cur_id = this.tableData[index].room_id;
       let cur_roomStatus = this.tableData[index].status;
       if(cur_roomStatus == "空房"){
@@ -286,7 +286,7 @@ export default {
         type: 'warning'
       })
               .then(() => {
-                this.delOne_roomType(index);
+                this.delOneDate(index);
               })
               .catch(() => {});
     },
@@ -328,15 +328,16 @@ export default {
     // 保存编辑
     saveEdit() {
       let curEdit_row = this.form;
-      post(`/dao.update_roomInfo?room_id=${curEdit_row.room_id}
-                &room_type_id=${curEdit_row.room_type_id}
-                &status=${curEdit_row.status}
-                &floor_id=${curEdit_row.floor_id}
-                &price=${curEdit_row.price}
-                &discounted_price=${curEdit_row.discounted_price}
-                &member_price=${curEdit_row.member_price}
-                &vip_price=${curEdit_row.vip_price}
-                &details=${curEdit_row.details}`
+      post(`/dao.update_roomInfo?room_id=${curEdit_row.room_id}`+
+                `&room_type_id=${curEdit_row.room_type_id}`+
+                `&status=${curEdit_row.status}`+
+                `&floor_id=${curEdit_row.floor_id}`+
+                `&price=${curEdit_row.price}`+
+                `&discounted_price=${curEdit_row.discounted_price}`+
+                `&member_price=${curEdit_row.member_price}`+
+                `&vip_price=${curEdit_row.vip_price}`+
+                `&details=${curEdit_row.details}
+                `
       )
               .then( data =>{
                 if(data.code === 200){
