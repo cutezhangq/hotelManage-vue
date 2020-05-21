@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-cascades"></i> 基础表格
+                    <i class="el-icon-lx-cascades"></i> 基础信息管理
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -264,17 +264,17 @@ export default {
         },
         //保存新增
         saveAdd(){
-          post(`/dao.add_memberInfo?name=${this.add_form.name}
-                &sex=${this.add_form.sex}
-                &password=${this.add_form.password}
-                &phone=${this.add_form.phone}
-                &address=${this.add_form.address}
-                &email=${this.add_form.email}
-                &integral=${this.add_form.integral}
-                &level=${this.add_form.level}
-                &check_in_time=${this.add_form.check_in_time}
-                &scheduled_time=${this.add_form.scheduled_time}
-                &details=${this.add_form.details}
+          post(`/dao.add_memberInfo?name=${this.add_form.name}`+
+                `&sex=${this.add_form.sex}`+
+                `&password=${this.add_form.password}`+
+                `&phone=${this.add_form.phone}`+
+                `&address=${this.add_form.address}`+
+                `&email=${this.add_form.email}`+
+                `&integral=${this.add_form.integral}`+
+                `&level=${this.add_form.level}`+
+                `&check_in_time=${this.add_form.check_in_time}`+
+                `&scheduled_time=${this.add_form.scheduled_time}`+
+                `&details=${this.add_form.details}
                 `
           )
           .then( data =>{
@@ -292,7 +292,7 @@ export default {
         },
 
         //删除一条数据
-        delOne_roomType(index){
+        delOneDate(index){
           let cur_id = this.tableData[index].member_id;
           get(`/dao.del_memberInfo?member_id=${cur_id}`)
           .then(data =>{
@@ -311,7 +311,7 @@ export default {
                 type: 'warning'
             })
             .then(() => {
-              this.delOne_roomType(index);
+              this.delOneDate(index);
             })
             .catch(() => {});
         },
@@ -353,18 +353,18 @@ export default {
         // 保存编辑
         saveEdit() {
           let curEdit_row = this.form;
-          post(`/dao.update_memberInfo?member_id=${curEdit_row.member_id}
-                &name=${curEdit_row.name}
-                &sex=${curEdit_row.sex}
-                &password=${curEdit_row.password}
-                &phone=${curEdit_row.phone}
-                &address=${curEdit_row.address}
-                &email=${curEdit_row.email}
-                &integral=${curEdit_row.integral}
-                &level=${curEdit_row.level}
-                &check_in_time=${curEdit_row.check_in_time}
-                &scheduled_time=${curEdit_row.scheduled_time}
-                &details=${curEdit_row.details}
+          post(`/dao.update_memberInfo?member_id=${curEdit_row.member_id}`+
+                `&name=${curEdit_row.name}`+
+                `&sex=${curEdit_row.sex}`+
+                `&password=${curEdit_row.password}`+
+                `&phone=${curEdit_row.phone}`+
+                `&address=${curEdit_row.address}`+
+                `&email=${curEdit_row.email}`+
+                `&integral=${curEdit_row.integral}`+
+                `&level=${curEdit_row.level}`+
+                `&check_in_time=${curEdit_row.check_in_time}`+
+                `&scheduled_time=${curEdit_row.scheduled_time}`+
+                `&details=${curEdit_row.details}
                 `
           )
           .then( data =>{
