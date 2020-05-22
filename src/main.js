@@ -5,7 +5,7 @@ import ElementUI from 'element-ui';
 
 //G2数据可视化
 const G2 = require('@antv/g2') // 1. 引入g2
-import DataSet from '@antv/data-set';
+const DataSet = require('@antv/data-set');
 Vue.prototype.$G2 = G2 // 2. 将g2挂载到vue中
 
 import VueI18n from 'vue-i18n';

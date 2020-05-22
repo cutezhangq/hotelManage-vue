@@ -135,7 +135,8 @@
 
 <script>
   import bus from '../common/bus';
-
+  import { fetch_diamond } from '@/api/index';
+  
   export default {
     name: 'dashboard',
     data() {
@@ -238,6 +239,7 @@
     },
     mounted() {
       this.init_barChart();
+      this.init_lineChart();
     },
     methods: {
       changeDate() {
@@ -272,8 +274,64 @@
       },
       // 折线散点图
       init_lineChart(){
-        this.msg.lineChart_msg = "酒店人流量折线图";
-        
+        this.msg.lineChart_msg = "酒店人流量密度图";
+        fetch_diamond(this.query)
+         .then((data) => {
+           const lineChart = new this.$G2.Chart({
+             container: 'lineChart',
+             autoFit: true,
+             height: 500,
+        });
+
+        lineChart.data(data);
+        lineChart.scale({
+          carat: {
+            alias: '克拉数',
+            min: 0,
+            max: 4,
+            sync: true,
+          },
+          price: {
+            alias: '人数',
+            sync: true,
+            nice: true,
+          },
+        });
+
+    lineChart.point().position('carat*price').shape('circle');
+
+    [
+      'boxcar',
+      'cosine',
+      'epanechnikov',
+      'gaussian',
+      'quartic',
+      'triangular',
+      'tricube',
+      'triweight',
+      'uniform',
+    ].forEach((method, i) => {
+      const dv = new DataSet.View().source(data);
+      dv.transform({
+        type: 'kernel-smooth.regression',
+        method,
+        fields: ['carat', 'price'],
+        as: ['carat', 'price'],
+        bandwidth: 0.5,
+        extent: [0, 4],
+      });
+
+      const view = lineChart.createView();
+      view.data(dv.rows);
+      view.axis(false);
+      view
+        .line()
+        .position('carat*price')
+        .color(view.getTheme().colors20[i]);
+    });
+
+    lineChart.render();
+  });
       },
 
       //词云
