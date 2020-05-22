@@ -2,6 +2,12 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import ElementUI from 'element-ui';
+
+//G2数据可视化
+const G2 = require('@antv/g2') // 1. 引入g2
+import DataSet from '@antv/data-set';
+Vue.prototype.$G2 = G2 // 2. 将g2挂载到vue中
+
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
