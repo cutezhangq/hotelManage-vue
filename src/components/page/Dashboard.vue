@@ -103,29 +103,29 @@
       <el-col :span="12">
         <el-card shadow="hover">
           <h2>{{ msg.barChart_msg }}</h2>
-          <div id="barChart"></div>
+          <div id="barChart" style="margin-top: 10px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
           <h2>{{ msg.lineChart_msg }}</h2>
-          <div id="lineChart"></div>
+          <div id="lineChart" style="margin-top: 10px;"></div>
         </el-card>
       </el-col>
     </el-row>
 
     <!-- 第三行 -->
-     <el-row :gutter="20">
+    <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          
-          
+          <h2>{{ msg.keywords_msg }}</h2>
+          <div id="keywChart" style="margin-top: 25px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-         
-
+          <h2>{{ msg.AnimatBar_msg }}</h2>
+          <div id="AnimatBar" style="margin-top: 25px;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -134,9 +134,16 @@
 </template>
 
 <script>
+  import {
+    DataSet
+  } from '@/api/index'
   import bus from '../common/bus';
-  import { fetch_diamond } from '@/api/index';
-  
+  import {
+    fetch_diamond,
+    fetch_keywords,
+    fetch_AnimatBar
+  } from '@/api/index';
+
   export default {
     name: 'dashboard',
     data() {
@@ -198,7 +205,9 @@
         ],
         msg: {
           barChart_msg: "",
-          lineChart_msg:"",
+          lineChart_msg: "",
+          keywords_msg: "",
+          AnimatBar_msg: "",
         },
         chart: null,
         G2_data: [{
@@ -227,7 +236,7 @@
           },
           {
             genre: "周日",
-            sold: 1189
+            sold: 989
           }
         ]
       };
@@ -240,6 +249,8 @@
     mounted() {
       this.init_barChart();
       this.init_lineChart();
+      this.init_keywords();
+      this.init_AnimatBar();
     },
     methods: {
       changeDate() {
@@ -256,7 +267,7 @@
         const barChart = new this.$G2.Chart({
           container: "barChart",
           autoFit: true,
-          height: 300
+          height: 400
         })
         barChart.source(this.G2_data);
         barChart.scale('sales', {
@@ -272,70 +283,344 @@
         this.chart = barChart
         this.chart.render()
       },
+
       // 折线散点图
-      init_lineChart(){
+      init_lineChart() {
         this.msg.lineChart_msg = "酒店人流量密度图";
         fetch_diamond(this.query)
-         .then((data) => {
-           const lineChart = new this.$G2.Chart({
-             container: 'lineChart',
-             autoFit: true,
-             height: 500,
-        });
+          .then((data) => {
+            const lineChart = new this.$G2.Chart({
+              container: 'lineChart',
+              autoFit: true,
+              height: 400,
+            });
 
-        lineChart.data(data);
-        lineChart.scale({
-          carat: {
-            alias: '克拉数',
-            min: 0,
-            max: 4,
-            sync: true,
-          },
-          price: {
-            alias: '人数',
-            sync: true,
-            nice: true,
-          },
-        });
+            lineChart.data(data);
+            lineChart.scale({
+              carat: {
+                alias: '克拉数',
+                min: 0,
+                max: 4,
+                sync: true,
+              },
+              price: {
+                alias: '人数',
+                sync: true,
+                nice: true,
+              },
+            });
 
-    lineChart.point().position('carat*price').shape('circle');
+            lineChart.point().position('carat*price').shape('circle');
 
-    [
-      'boxcar',
-      'cosine',
-      'epanechnikov',
-      'gaussian',
-      'quartic',
-      'triangular',
-      'tricube',
-      'triweight',
-      'uniform',
-    ].forEach((method, i) => {
-      const dv = new DataSet.View().source(data);
-      dv.transform({
-        type: 'kernel-smooth.regression',
-        method,
-        fields: ['carat', 'price'],
-        as: ['carat', 'price'],
-        bandwidth: 0.5,
-        extent: [0, 4],
-      });
+            [
+              'boxcar',
+              'cosine',
+              'epanechnikov',
+              'gaussian',
+              'quartic',
+              'triangular',
+              'tricube',
+              'triweight',
+              'uniform',
+            ].forEach((method, i) => {
 
-      const view = lineChart.createView();
-      view.data(dv.rows);
-      view.axis(false);
-      view
-        .line()
-        .position('carat*price')
-        .color(view.getTheme().colors20[i]);
-    });
+              const dv = new DataSet.View().source(data);
+              dv.transform({
+                type: 'kernel-smooth.regression',
+                method,
+                fields: ['carat', 'price'],
+                as: ['carat', 'price'],
+                bandwidth: 0.5,
+                extent: [0, 4],
+              });
 
-    lineChart.render();
-  });
+              const view = lineChart.createView();
+              view.data(dv.rows);
+              view.axis(false);
+              view
+                .line()
+                .position('carat*price')
+                .color(view.getTheme().colors20[i]);
+            });
+
+            lineChart.render();
+          });
       },
 
       //词云
+      getTextAttrs(cfg) {
+        return {
+          ...cfg.style,
+          fontSize: cfg.data.size,
+          text: cfg.data.text,
+          textAlign: 'center',
+          fontFamily: cfg.data.font,
+          fill: cfg.color,
+          textBaseline: 'Alphabetic'
+        };
+      },
+      init_keywords() {
+        this.msg.keywords_msg = "SJU酒店词云";
+        let _this = this;
+        // 给 point 注册一个词云的 shape
+        this.$G2.registerShape('point', 'cloud', {
+          draw(cfg, container) {
+            const attrs = _this.getTextAttrs(cfg);
+            const textShape = container.addShape('text', {
+              attrs: {
+                ...attrs,
+                x: cfg.x,
+                y: cfg.y
+              }
+            });
+            if (cfg.data.rotate) {
+              _this.$G2.Util.rotate(textShape, cfg.data.rotate * Math.PI / 180);
+            }
+            return textShape;
+          }
+        });
+        fetch_keywords(this.query)
+          .then(data => {
+            const dv = new DataSet.View().source(data);
+            const range = dv.range('value');
+            const min = range[0];
+            const max = range[1];
+            const imageMask = new Image();
+            imageMask.crossOrigin = '';
+            imageMask.src = 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ';
+            imageMask.onload = () => {
+              dv.transform({
+                type: 'tag-cloud',
+                fields: ['name', 'value'],
+                imageMask,
+                font: 'Verdana',
+                size: [600, 400], // 宽高设置最好根据 imageMask 做调整
+                padding: 0,
+                timeInterval: 5000, // max execute time
+                rotate() {
+                  let random = ~~(Math.random() * 4) % 4;
+                  if (random === 2) {
+                    random = 0;
+                  }
+                  return random * 90; // 0, 90, 270
+                },
+                fontSize(d) {
+                  return ((d.value - min) / (max - min)) * (32 - 8) + 8;
+                }
+              });
+              const keyw_chart = new this.$G2.Chart({
+                container: 'keywChart',
+                autoFit: false,
+                width: 600, // 宽高设置最好根据 imageMask 做调整
+                height: 400,
+                padding: 0
+              });
+              keyw_chart.data(dv.rows);
+              keyw_chart.scale({
+                x: {
+                  nice: false
+                },
+                y: {
+                  nice: false
+                }
+              });
+              keyw_chart.legend(false);
+              keyw_chart.axis(false);
+              keyw_chart.tooltip({
+                showTitle: false,
+                showMarkers: false
+              });
+              keyw_chart.coordinate().reflect();
+              keyw_chart.point()
+                .position('x*y')
+                .color('text')
+                .shape('cloud')
+                .state({
+                  active: {
+                    style: {
+                      fillOpacity: 0.4
+                    }
+                  }
+                });
+              keyw_chart.interaction('element-active');
+              keyw_chart.render();
+            };
+          });
 
+
+
+      },
+
+      //动态图标
+      init_AnimatBar() {
+        this.msg.AnimatBar_msg = "中国GDP状态图";
+        let _this = this;
+        this.$G2.registerAnimation('label-appear', (element, animateCfg, cfg) => {
+          const label = element.getChildren()[0];
+          const coordinate = cfg.coordinate;
+          const startX = coordinate.start.x;
+          const finalX = label.attr('x');
+          const labelContent = label.attr('text');
+
+          label.attr('x', startX);
+          label.attr('text', 0);
+
+          const distance = finalX - startX;
+          label.animate((ratio) => {
+            const position = startX + distance * ratio;
+            const text = (labelContent * ratio).toFixed(0);
+
+            return {
+              x: position,
+              text,
+            };
+          }, animateCfg);
+        });
+
+        this.$G2.registerAnimation('label-update', (element, animateCfg, cfg) => {
+          const startX = element.attr('x');
+          const startY = element.attr('y');
+          // @ts-ignore
+          const finalX = cfg.toAttrs.x;
+          // @ts-ignore
+          const finalY = cfg.toAttrs.y;
+          const labelContent = element.attr('text');
+          // @ts-ignore
+          const finalContent = cfg.toAttrs.text;
+
+          const distanceX = finalX - startX;
+          const distanceY = finalY - startY;
+          const numberDiff = +finalContent - +labelContent;
+
+          element.animate((ratio) => {
+            const positionX = startX + distanceX * ratio;
+            const positionY = startY + distanceY * ratio;
+            const text = (+labelContent + numberDiff * ratio).toFixed(0);
+
+            return {
+              x: positionX,
+              y: positionY,
+              text,
+            };
+          }, animateCfg);
+
+
+        });
+
+        function handleData(source) {
+          source.sort((a, b) => {
+            return a.value - b.value;
+          });
+
+          return source;
+        }
+
+        fetch_AnimatBar(this.query)
+          .then(data => {
+            let count = 0;
+            let AnimatBar_chart;
+            let interval;
+
+            function countUp() {
+              if (count === 0) {
+                AnimatBar_chart = new _this.$G2.Chart({
+                  container: 'AnimatBar',
+                  autoFit: true,
+                  height: 400,
+                  padding: [20, 60]
+                });
+                // @ts-ignore
+                AnimatBar_chart.data(handleData(Object.values(data)[count]));
+                AnimatBar_chart.coordinate('rect').transpose();
+                AnimatBar_chart.legend(false);
+                AnimatBar_chart.tooltip(false);
+                // AnimatBar_chart.axis('value', false);
+                AnimatBar_chart.axis('city', {
+                  animateOption: {
+                    update: {
+                      duration: 1000,
+                      easing: 'easeLinear'
+                    }
+                  }
+                });
+                AnimatBar_chart.annotation().text({
+                  position: ['95%', '90%'],
+                  content: Object.keys(data)[count],
+                  style: {
+                    fontSize: 40,
+                    fontWeight: 'bold',
+                    fill: '#ddd',
+                    textAlign: 'end'
+                  },
+                  animate: false,
+                });
+                AnimatBar_chart
+                  .interval()
+                  .position('city*value')
+                  .color('city')
+                  .label('value', (value) => {
+                    // if (value !== 0) {
+                    return {
+                      animate: {
+                        appear: {
+                          animation: 'label-appear',
+                          delay: 0,
+                          duration: 1000,
+                          easing: 'easeLinear'
+                        },
+                        update: {
+                          animation: 'label-update',
+                          duration: 1000,
+                          easing: 'easeLinear'
+                        }
+                      },
+                      offset: 5,
+                    };
+                    // }
+                  }).animate({
+                    appear: {
+                      duration: 1000,
+                      easing: 'easeLinear'
+                    },
+                    update: {
+                      duration: 1000,
+                      easing: 'easeLinear'
+                    }
+                  });
+
+                AnimatBar_chart.render();
+              } else {
+                AnimatBar_chart.annotation().clear(true);
+                AnimatBar_chart.annotation().text({
+                  position: ['95%', '90%'],
+                  content: Object.keys(data)[count],
+                  style: {
+                    fontSize: 40,
+                    fontWeight: 'bold',
+                    fill: '#ddd',
+                    textAlign: 'end'
+                  },
+                  animate: false,
+                });
+                // @ts-ignore
+                AnimatBar_chart.changeData(handleData(Object.values(data)[count]));
+              }
+
+              ++count;
+
+              if (count === Object.keys(data).length) {
+                clearInterval(interval);
+              }
+            }
+
+            countUp();
+            interval = setInterval(countUp, 1200);
+          });
+
+
+
+
+      },
 
     }
   };
