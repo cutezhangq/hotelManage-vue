@@ -91,8 +91,13 @@
         <el-form-item label="房间类型">
           <el-input v-model="add_form.room_type_id"></el-input>
         </el-form-item>
-        <el-form-item label="状态">
+        <!-- <el-form-item label="状态">
           <el-input v-model="add_form.status"></el-input>
+        </el-form-item> -->
+        <el-form-item label="状态">
+            <el-radio v-model="add_form.status" label="空房">空房</el-radio>
+            <el-radio v-model="add_form.status" label="已预订">已预订</el-radio>
+            <el-radio v-model="add_form.status" label="入住">入住</el-radio>
         </el-form-item>
         <el-form-item label="楼层编号">
           <el-input v-model="add_form.floor_id"></el-input>
@@ -128,8 +133,13 @@
         <el-form-item label="房间类型">
           <el-input v-model="form.room_type_id"></el-input>
         </el-form-item>
-        <el-form-item label="状态">
+        <!-- <el-form-item label="状态">
           <el-input v-model="form.status"></el-input>
+        </el-form-item> -->
+        <el-form-item label="状态">
+            <el-radio v-model="cur_status" label="空房">空房</el-radio>
+            <el-radio v-model="cur_status" label="已预订">已预订</el-radio>
+            <el-radio v-model="cur_status" label="入住">入住</el-radio>
         </el-form-item>
         <el-form-item label="楼层编号">
           <el-input v-model="form.floor_id"></el-input>
@@ -179,7 +189,7 @@ export default {
       form: {},
       add_form:{ //新增数据
         room_type_id: "",
-        status: "",
+        status: "空房",
         floor_id: "",
         price: "",
         discounted_price: "",
@@ -321,6 +331,7 @@ export default {
     // 编辑操作
     handleEdit(index, row) {
       this.idx = index;
+      this.cur_status = row.status; //单选按钮的选择
       this.form = row;  //当前行
       this.editVisible = true;
     },
@@ -330,7 +341,7 @@ export default {
       let curEdit_row = this.form;
       post(`/dao.update_roomInfo?room_id=${curEdit_row.room_id}`+
                 `&room_type_id=${curEdit_row.room_type_id}`+
-                `&status=${curEdit_row.status}`+
+                `&status=${this.cur_status}`+
                 `&floor_id=${curEdit_row.floor_id}`+
                 `&price=${curEdit_row.price}`+
                 `&discounted_price=${curEdit_row.discounted_price}`+

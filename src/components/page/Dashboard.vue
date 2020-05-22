@@ -1,7 +1,9 @@
 <template>
     <div>
         <el-row :gutter="20">
+          <!-- 第一行 左边 -->
             <el-col :span="8">
+                <!-- 用户信息面板 -->
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
                         <img src="../../assets/img/img.jpg" class="user-avator" alt />
@@ -19,6 +21,7 @@
                         <span>南京</span>
                     </div>
                 </el-card>
+                <!-- 进度条面板 -->
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
                         <span>语言详情</span>
@@ -29,7 +32,9 @@
                     <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
+            <!-- 第一行 右边 -->
             <el-col :span="16">
+                <!-- 访问、消息、数量 -->
                 <el-row :gutter="20" class="mgb20">
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}">
@@ -65,6 +70,7 @@
                         </el-card>
                     </el-col>
                 </el-row>
+                <!-- 待办事项 -->
                 <el-card shadow="hover" style="height:403px;">
                     <div slot="header" class="clearfix">
                         <span>待办事项</span>
@@ -94,6 +100,7 @@
                 </el-card>
             </el-col>
         </el-row>
+        <!-- 第二行 -->
         <el-row :gutter="20">
             <el-col :span="12">
                 <el-card shadow="hover">
@@ -106,12 +113,30 @@
                 </el-card>
             </el-col>
         </el-row>
+        <!-- 第三行 -->
+         <el-col :gutter="20">
+            <el-col :span="12">
+                <el-card shadow="hover">
+                    
+                </el-card>
+            </el-col>
+             <el-col :span="12">
+                <el-card shadow="hover">
+                    
+
+
+                </el-card>
+            </el-col>
+         </el-col>
     </div>
 </template>
 
 <script>
 import Schart from 'vue-schart';
 import bus from '../common/bus';
+//词云
+// import DataSet from '@antv/data-set';
+// import { Chart, registerShape, Util } from '@antv/g2';
 export default {
     name: 'dashboard',
     data() {
