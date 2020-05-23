@@ -4,6 +4,7 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+    mode:'history',
     routes: [
         {
             path: '/',
@@ -17,104 +18,104 @@ export default new Router({
                 {
                     path: '/dashboard',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
-                    meta: { title: '系统首页' }
+                    meta: { title: '系统首页',permission: false }
                 },
                 // 基础信息管理
                 {
                     path:'/room_type',
                     component: () => import('../components/page/BasicInfoManage/room_type.vue'),
-                     meta: { title: '客房类型管理' }
+                     meta: { title: '客房类型管理',permission: true ,auth_admin:true}
                 },
                 {
                     path:'/floor_info',
                     component: () => import('../components/page/BasicInfoManage/floor_info.vue'),
-                     meta: { title: '楼层管理' }
+                     meta: { title: '楼层管理', permission: true ,auth_admin:true}
                 },
                 {
                     path:'/goods_type',
                     component: () => import('../components/page/BasicInfoManage/goods_type.vue'),
-                     meta: { title: '商品类别管理' }
+                     meta: { title: '商品类别管理' ,permission: true ,auth_admin:true}
                 },
                 {
                     path:'/goods_info',
                     component: () => import('../components/page/BasicInfoManage/goods_info.vue'),
-                     meta: { title: '商品信息管理' }
+                     meta: { title: '商品信息管理' ,permission: true ,auth_admin:true}
                 },
 
                 {
                     path:'/member_info',
                     component: () => import('../components/page/BasicInfoManage/member_info.vue'),
-                     meta: { title: '会员管理' }
+                     meta: { title: '会员管理',permission: true ,auth_admin:true }
                 },
 
                 // 客房管理
                 {
                   path:'/room_info',
                   component: () => import('../components/page/RoomManage/room_info.vue'),
-                   meta: { title: '客房管理' }
+                   meta: { title: '客房管理' ,permission: true ,auth_admin:true}
                 },
                 
                 // 房客管理
                 {
                   path:'/order_info',
                   component: () => import('../components/page/tenantManage/order_info.vue'),
-                   meta: { title: '客房预定' }
+                   meta: { title: '客房预定',permission: true ,auth_admin:true ,auth_font:true }
                 },
                 {
                   path:'/checkin_info',
                   component: () => import('../components/page/tenantManage/checkin_info.vue'),
-                   meta: { title: '客房入住' }
+                   meta: { title: '客房入住',permission: true ,auth_admin:true ,auth_font:true }
                 },
                 {
                   path:'/replace-room',
                   component: () => import('../components/page/tenantManage/replace-room.vue'),
-                   meta: { title: '换房' }
+                   meta: { title: '换房' ,permission: true ,auth_admin:true ,auth_font:true}
                 },
                 {
                   path:'/bill_info',
                   component: () => import('../components/page/tenantManage/bill_info.vue'),
-                   meta: { title: '退房结帐' }
+                   meta: { title: '退房结帐',permission: true ,auth_admin:true ,auth_font:true}
                 },
 
                 //消费管理
                 {
                   path:'/cost_info',
                   component: () => import('../components/page/costInfoManage/cost_info.vue'),
-                   meta: { title: '消费管理' }
+                   meta: { title: '消费管理',permission: true ,auth_admin:true ,auth_font:true }
                 },
 
                 // 报表管理
                 {
                   path:'/order_info_report',
                   component: () => import('../components/page/reportManage/order_info_report.vue'),
-                   meta: { title: '预定客人报表' }
+                   meta: { title: '预定客人报表',permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
                 {
                   path:'/checkin_info_report',
                   component: () => import('../components/page/reportManage/checkin_info_report.vue'),
-                   meta: { title: '在住客人报表' }
+                   meta: { title: '在住客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
                 {
                   path:'/bill_info_report',
                   component: () => import('../components/page/reportManage/bill_info_report.vue'),
-                   meta: { title: '离店客人报表' }
+                   meta: { title: '离店客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true }
                 },
                 {
                   path:'/cost_info_report',
                   component: () => import('../components/page/reportManage/cost_info_report.vue'),
-                   meta: { title: '财务进账报表' }
+                   meta: { title: '财务进账报表',permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
 
                 // 系统管理
                 {
                   path:'/user_info',
                   component: () => import('../components/page/systemManage/user_info.vue'),
-                   meta: { title: '用户信息维护' }
+                   meta: { title: '用户信息维护',permission: true ,auth_admin:true }
                 },
                 {
                   path:'/log_info',
                   component: () => import('../components/page/systemManage/log_info.vue'),
-                   meta: { title: '日志信息维护' }
+                   meta: { title: '日志信息维护',permission: true ,auth_admin:true }
                 },
 
 

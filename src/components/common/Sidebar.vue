@@ -99,11 +99,11 @@ export default {
                     subs: [
                         {
                             index: 'order_info',
-                            title: '客房预定'
+                            title: '预定'
                         },
                         {
                             index: 'checkin_info',
-                            title: '客房入住'
+                            title: '入住'
                         },
                         {
                             index: 'replace-room',
