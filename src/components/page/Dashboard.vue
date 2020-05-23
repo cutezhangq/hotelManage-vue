@@ -28,7 +28,7 @@
           </div>ES6
           <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
           <el-progress :percentage="64.1" color="#f1e05a"></el-progress>CSS
-          <el-progress :percentage="43.7"></el-progress>HTML
+          <el-progress :percentage="43.7"></el-progress>HTML5
           <el-progress :percentage="55.9" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
