@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades"></i> 基础表格
+          <i class="el-icon-shopping-cart-1"></i> 消费管理
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -22,6 +22,23 @@
                 class="handle-del mr10"
                 @click="addDate"
         >新增数据</el-button>
+        <el-tooltip content="暂未开放，请前往商品管理查看" placement="top">
+          <el-button
+                  v-if="!goodsInfo_flag"
+                  type="primary"
+                  icon="el-icon-goods"
+                  class="handle-del mr10"
+                  @click="goodsInfo_flag"
+          >商品信息查询</el-button>
+        
+          <el-button
+                  v-else
+                  type="primary"
+                  icon="el-icon-shopping-cart-1"
+                  class="handle-del mr10"
+                  @click="showCostInfo"
+          >返回消费管理</el-button>
+          </el-tooltip>
         <!-- 搜索 关键词 -->
         <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
           <el-option key="1" label="消费编号" value="cost_id"></el-option>
@@ -52,7 +69,7 @@
         <el-table-column prop="goods_id" label="商品编号" align="center"></el-table-column>
         <el-table-column prop="number" label="数量" align="center"></el-table-column>
         <el-table-column prop="operator" label="操作者" align="center"></el-table-column>
-        <el-table-column prop="time" label="时间" align="center"></el-table-column>
+        <el-table-column prop="time" label="时间" align="center" width="160"></el-table-column>
         <el-table-column prop="details" label="备注" align="center"></el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
@@ -86,9 +103,6 @@
     <!-- 新增弹出框 -->
     <el-dialog title="新增" :visible.sync="addVisible" width="30%">
       <el-form ref="form" :model="add_form" label-width="70px">
-        <el-form-item label="入住编号">
-          <el-input v-model="form.checkin_id" :disabled="true"></el-input>
-        </el-form-item>
         <el-form-item label="房间编号">
           <el-input v-model="add_form.room_id"></el-input>
         </el-form-item>
@@ -97,9 +111,6 @@
         </el-form-item>
         <el-form-item label="数量">
           <el-input v-model="add_form.number"></el-input>
-        </el-form-item>
-        <el-form-item label="操作者">
-          <el-input v-model="add_form.operator"></el-input>
         </el-form-item>
         <el-form-item label="时间">
           <el-input v-model="add_form.time"></el-input>
@@ -124,22 +135,22 @@
           <el-input v-model="form.checkin_id"></el-input>
         </el-form-item>
         <el-form-item label="房间编号">
-          <el-input v-model="add_form.room_id"></el-input>
+          <el-input v-model="form.room_id"></el-input>
         </el-form-item>
         <el-form-item label="商品编号">
-          <el-input v-model="add_form.goods_id"></el-input>
+          <el-input v-model="form.goods_id"></el-input>
         </el-form-item>
         <el-form-item label="数量">
-          <el-input v-model="add_form.number"></el-input>
+          <el-input v-model="form.number"></el-input>
         </el-form-item>
         <el-form-item label="操作者">
-          <el-input v-model="add_form.operator"></el-input>
+          <el-input v-model="form.operator" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="时间">
-          <el-input v-model="add_form.time"></el-input>
+          <el-input v-model="form.time"></el-input>
         </el-form-item>
         <el-form-item label="备注">
-          <el-input v-model="add_form.details"></el-input>
+          <el-input v-model="form.details"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -156,6 +167,7 @@ export default {
   name: 'cost_info',
   data() {
     return {
+      goodsInfo_flag:false,
       query: {
         queryContent: '',
         queryName: '',
@@ -250,7 +262,7 @@ export default {
     },
 
     //删除一条数据
-    delOne_roomType(index){
+    delOneDate(index){
       let cur_id = this.tableData[index].cost_id;
       get(`/dao.del_costInfo?cost_id=${cur_id}`)
               .then(data =>{
@@ -269,7 +281,7 @@ export default {
         type: 'warning'
       })
               .then(() => {
-                this.delOne_roomType(index);
+                this.delOneDate(index);
               })
               .catch(() => {});
     },
@@ -316,7 +328,6 @@ export default {
                 &room_id=${curEdit_row.room_id}
                 &goods_id=${curEdit_row.goods_id}
                 &number=${curEdit_row.number}
-                &operator=${curEdit_row.operator}
                 &time=${curEdit_row.time}
                 &details=${curEdit_row.details}`
       )
@@ -336,6 +347,11 @@ export default {
       // this.$set(this.query, 'pageIndex', val);
       this.query.pageIndex = val;
       this.getDate();
+    },
+
+    //返回消费管理页面
+    showCostInfo(){
+      this.goodsInfo_flag = false;
     }
   }
 }
