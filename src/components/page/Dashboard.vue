@@ -24,12 +24,12 @@
         <!-- 进度条面板 -->
         <el-card shadow="hover" style="height:252px;">
           <div slot="header" class="clearfix">
-            <span>语言详情</span>
-          </div>Vue
+            <span>进度</span>
+          </div>ES6
           <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-          <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-          <el-progress :percentage="13.7"></el-progress>HTML
-          <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
+          <el-progress :percentage="64.1" color="#f1e05a"></el-progress>CSS
+          <el-progress :percentage="43.7"></el-progress>HTML
+          <el-progress :percentage="55.9" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
       <!-- 第一行 右边 -->
@@ -41,7 +41,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-lx-people grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">1234</div>
+                  <div class="grid-num">{{pv}}</div>
                   <div>用户访问量</div>
                 </div>
               </div>
@@ -52,7 +52,7 @@
               <div class="grid-content grid-con-2">
                 <i class="el-icon-lx-notice grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">321</div>
+                  <div class="grid-num">{{mv}}</div>
                   <div>系统消息</div>
                 </div>
               </div>
@@ -63,7 +63,7 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-lx-goods grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">5000</div>
+                  <div class="grid-num">{{nv}}</div>
                   <div>数量</div>
                 </div>
               </div>
@@ -102,8 +102,8 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          <h2>{{ msg.barChart_msg }}</h2>
-          <div id="barChart" style="margin-top: 10px;"></div>
+           <h2>{{ msg.AnimatBar_msg }}</h2>
+          <div id="AnimatBar" style="margin-top: 10px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -124,10 +124,17 @@
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-          <h2>{{ msg.AnimatBar_msg }}</h2>
-          <div id="AnimatBar" style="margin-top: 25px;"></div>
+           <h2>{{ msg.barChart_msg }}</h2>
+           <div id="barChart" style="margin-top: 25px;"></div>
         </el-card>
       </el-col>
+    </el-row>
+
+      <!-- 第四行 -->
+    <el-row :gutter="20">
+      <el-card shadow="hover" style="height:683px;">
+        <el-calendar v-model="value"></el-calendar>
+      </el-card>
     </el-row>
 
   </div>
@@ -148,6 +155,10 @@
     name: 'dashboard',
     data() {
       return {
+        value: new Date(),
+        pv:134, //访问量
+        mv:623, //消息量
+        nv:579, //数量
         name: localStorage.getItem('ms_username'),
         todoList: [{
             title: '今天要修复100个bug',
@@ -244,7 +255,7 @@
     computed: {
       role() {
         return this.name === 'admin' ? '超级管理员' : '普通用户';
-      }
+      },
     },
     mounted() {
       this.init_barChart();
@@ -260,6 +271,8 @@
           item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         });
       },
+      
+
       //柱状图
       init_barChart() {
         //创建一个初始化的函数
@@ -622,6 +635,7 @@
 
       },
 
+      
     }
   };
 </script>

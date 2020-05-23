@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-cascades"></i> 基础信息管理
+                    <i class="el-icon-user"></i> 房客管理
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -16,6 +16,13 @@
                     class="handle-del mr10"
                     @click="addDate"
                 >新增数据</el-button>
+                 <el-tooltip content="暂未开放，请前往客房管理查看" placement="top">
+                    <el-button
+                    type="primary"
+                    icon="el-icon-office-building"
+                    class="handle-del mr10"
+                >查看空房</el-button>
+                 </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
                     <el-option key="1" label="预定单号" value="order_id"></el-option>
@@ -25,8 +32,8 @@
                     <el-option key="5" label="折后价" value="discounted_price"></el-option>
                     <el-option key="6" label="押金" value="deposit"></el-option>
                     <el-option key="7" label="预定人" value="orderer"></el-option>
-                    <el-option key="8" label="证件类别" value="ID_type"></el-option>
-                    <el-option key="9" label="证件号码" value="ID_number"></el-option>
+                    <el-option key="8" label="证件类别" value="id_type"></el-option>
+                    <el-option key="9" label="证件号码" value="id_number"></el-option>
                     <el-option key="10" label="联系电话" value="phone"></el-option>
                     <el-option key="11" label="抵店时间" value="arrivals_time"></el-option>
                     <el-option key="12" label="离店时间" value="leave_time"></el-option>
@@ -34,7 +41,7 @@
                     <el-option key="14" label="操作员" value="operator"></el-option>
                     <el-option key="15" label="会员编号" value="member_id"></el-option>
                     <el-option key="16" label="会员价" value="vip_price"></el-option>
-                    <el-option key="17" label="预定状态" value="status"></el-option>
+                    <el-option key="17" label="预定状态" value="order_status"></el-option>
                     <el-option key="18" label="备注" value="details"></el-option>
                     <el-option key="19" label="——全部——" value="0"></el-option>
                 </el-select>
@@ -66,7 +73,7 @@
                 <el-table-column prop="operator" label="操作员" align="center"></el-table-column>
                 <el-table-column prop="member_id" label="会员编号" align="center"></el-table-column>
                 <el-table-column prop="vip_price" label="会员价" align="center"></el-table-column>
-                <el-table-column prop="status" label="预定状态" align="center"></el-table-column>
+                <el-table-column prop="order_status" label="预定状态" align="center"></el-table-column>
                 <el-table-column prop="details" label="备注" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -75,11 +82,11 @@
                             icon="el-icon-edit"
                             @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
-                        <el-button
+                        <!-- <el-button
                             type="text"
                             icon="el-icon-s-home"
                             @click="roomInfo_order(scope.$index, scope.row)"
-                        >客房信息查询</el-button>
+                        >客房信息查询</el-button> -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -111,10 +118,10 @@
                     <el-input v-model="add_form.orderer"></el-input>
                 </el-form-item>
                  <el-form-item label="证件类别">
-                    <el-input v-model="add_form.ID_type"></el-input>
+                    <el-input v-model="add_form.id_type"></el-input>
                 </el-form-item>
                  <el-form-item label="证件号码">
-                    <el-input v-model="add_form.ID_number"></el-input>
+                    <el-input v-model="add_form.id_number"></el-input>
                 </el-form-item>
                  <el-form-item label="联系电话">
                     <el-input v-model="add_form.phone"></el-input>
@@ -128,16 +135,17 @@
                 <el-form-item label="入住人数">
                     <el-input v-model="add_form.number"></el-input>
                 </el-form-item>
-                 <el-form-item label="操作员">
+                <!-- 这里后台暂时没有token验证，操作员就是当前登录的用户的id -->
+                 <!-- <el-form-item label="操作员">
                     <el-input v-model="add_form.operator"></el-input>
-                </el-form-item>
-                     <el-form-item label="会员编号">
+                </el-form-item> -->
+                <el-form-item label="会员编号">
                     <el-input v-model="add_form.member_id"></el-input>
                 </el-form-item>
                 <el-form-item label="预定状态">
-                    <el-radio v-model="add_form.status" label="预定">预定</el-radio>
-                    <el-radio v-model="add_form.status" label="入住">入住</el-radio>
-                    <el-radio v-model="add_form.status" label="取消">取消</el-radio>
+                    <el-radio v-model="add_form.order_status" label="正常">正常</el-radio>
+                    <el-radio v-model="add_form.order_status" label="已入住">已入住</el-radio>
+                    <el-radio v-model="add_form.order_status" label="已取消">已取消</el-radio>
                 </el-form-item>
                  <el-form-item label="备注">
                     <el-input v-model="add_form.details"></el-input>
@@ -165,10 +173,10 @@
                     <el-input v-model="form.orderer"></el-input>
                 </el-form-item>
                  <el-form-item label="证件类别">
-                    <el-input v-model="form.ID_type"></el-input>
+                    <el-input v-model="form.id_type"></el-input>
                 </el-form-item>
                  <el-form-item label="证件号码">
-                    <el-input v-model="form.ID_number"></el-input>
+                    <el-input v-model="form.id_number"></el-input>
                 </el-form-item>
                  <el-form-item label="联系电话">
                     <el-input v-model="form.phone"></el-input>
@@ -183,15 +191,15 @@
                     <el-input v-model="form.number"></el-input>
                 </el-form-item>
                  <el-form-item label="操作员">
-                    <el-input v-model="form.operator"></el-input>
+                    <el-input v-model="form.operator" :disabled="true"></el-input>
                 </el-form-item>
                      <el-form-item label="会员编号">
                     <el-input v-model="form.member_id"></el-input>
                 </el-form-item>
                 <el-form-item label="预定状态">
-                    <el-radio v-model="cur_status" label="预定">预定</el-radio>
-                    <el-radio v-model="cur_status" label="入住">入住</el-radio>
-                    <el-radio v-model="cur_status" label="取消">取消</el-radio>
+                    <el-radio v-model="cur_status" label="正常">正常</el-radio>
+                    <el-radio v-model="cur_status" label="已入住" >已入住</el-radio>
+                    <el-radio v-model="cur_status" label="已取消" >已取消</el-radio>
                  </el-form-item>
                  <el-form-item label="备注">
                     <el-input v-model="form.details"></el-input>
@@ -229,15 +237,15 @@ export default {
               room_id: "",
               deposit: "",
               orderer: "",
-              ID_type: "",
-              ID_number: "",
+              id_type: "",
+              id_number: "",
               phone: "",
               arrivals_time: "",
               leave_time: "",
               number: "",
               operator: "",
               member_id:"",
-              status:"预定",
+              order_status:"正常",
               details: "",
             }, 
             cur_status:"",
@@ -292,15 +300,15 @@ export default {
           post(`/dao.add_orderInfo?room_id=${this.add_form.room_id}`+
                 `&deposit=${this.add_form.deposit}`+
                 `&orderer=${this.add_form.orderer}`+
-                `&ID_type=${this.add_form.ID_type}`+
-                `&ID_number=${this.add_form.ID_number}`+
+                `&id_type=${this.add_form.id_type}`+
+                `&id_number=${this.add_form.id_number}`+
                 `&phone=${this.add_form.phone}`+
                 `&arrivals_time=${this.add_form.arrivals_time}`+
                 `&leave_time=${this.add_form.leave_time}`+
                 `&number=${this.add_form.number}`+
-                `&operator=${this.add_form.operator}`+
+                
                 `&member_id=${this.add_form.member_id}`+
-                `&status=${this.add_form.status}`+
+                `&order_status=${this.add_form.order_status}`+
                 `&details=${this.add_form.details}
                 `
           )
@@ -309,6 +317,8 @@ export default {
               this.addVisible =  false;
               this.$message.success(`新增一条数据成功`);
               this.getDate();
+            }else{
+              this.$message.error(`预定状态必须是 空房 才能修改状态`);
             }
           })
         },
@@ -322,7 +332,7 @@ export default {
         handleEdit(index, row) {
             this.idx = index;
             this.form = row;  //当前行
-            this.cur_status = row.status; //单选按钮的选择
+            this.cur_status = row.order_status; //单选按钮的选择
             this.editVisible = true;
         },
 
@@ -333,15 +343,15 @@ export default {
                 `&room_id=${curEdit_row.room_id}`+
                 `&deposit=${curEdit_row.deposit}`+
                 `&orderer=${curEdit_row.orderer}`+
-                `&ID_type=${curEdit_row.ID_type}`+
-                `&ID_number=${curEdit_row.ID_number}`+
+                `&id_type=${curEdit_row.id_type}`+
+                `&id_number=${curEdit_row.id_number}`+
                 `&phone=${curEdit_row.phone}`+
                 `&arrivals_time=${curEdit_row.arrivals_time}`+
                 `&leave_time=${curEdit_row.leave_time}`+
                 `&number=${curEdit_row.number}`+
                 `&operator=${curEdit_row.operator}`+
                 `&member_id=${curEdit_row.member_id}`+
-                `&status=${this.cur_status}`+
+                `&order_status=${this.cur_status}`+
                 `&details=${curEdit_row.details}
                 `
           )
