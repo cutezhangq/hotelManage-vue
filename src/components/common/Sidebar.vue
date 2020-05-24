@@ -132,15 +132,23 @@ export default {
                         },
                         {
                             index: 'checkin_info_report',
-                            title: '在住客人报表'
+                            title: '入住客人报表'
                         },
                         {
-                            index: 'bill_info_report',
-                            title: '离店客人报表'
+                            index: 'today_order_info',
+                            title: '今日预定客人报表'
                         },
                         {
-                            index: 'cost_info_report',
-                            title: '财务进账报表'
+                            index: 'today_checkin_info',
+                            title: '今日入住客人报表'
+                        },
+                        {
+                            index: 'today_bill_info',
+                            title: '当日离店客人报表'
+                        },
+                        {
+                            index: 'today_cost_info',
+                            title: '当日财务进账报表'
                         }
                     ]
                 },

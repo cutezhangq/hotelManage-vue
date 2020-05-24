@@ -22,6 +22,13 @@
                     icon="el-icon-office-building"
                     class="handle-del mr10"
                 >查看客房信息</el-button>
+                </el-tooltip>
+                 <el-tooltip content="只能查询还未离店的入住订单" placement="top">
+                    <el-button
+                    type="info"
+                    icon="el-icon-info"
+                    class="handle-del mr10"
+                >备注</el-button>
                  </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
@@ -39,11 +46,11 @@
                     <el-option key="13" label="入住人数" value="number"></el-option>
                     <el-option key="14" label="操作员" value="operator"></el-option>
                     <el-option key="15" label="会员编号" value="member_id"></el-option>
-                    <el-option key="18" label="会员价格" value="member_price"></el-option>
-                    <el-option key="16" label="是否提供早餐" value="breakfast"></el-option>
-                    <el-option key="17" label="是否定时叫醒" value="wake"></el-option>
-                    <el-option key="18" label="是否是预定转入住" value="order_to"></el-option>
-                    <el-option key="19" label="——全部——" value="0"></el-option>
+                    <el-option key="16" label="会员价格" value="member_price"></el-option>
+                    <el-option key="17" label="是否提供早餐" value="breakfast"></el-option>
+                    <el-option key="18" label="是否定时叫醒" value="wake"></el-option>
+                    <el-option key="19" label="是否是预定转入住" value="order_to"></el-option>
+                    <el-option key="20" label="——全部——" value="0"></el-option>
                 </el-select>
                 <el-input v-model="query.queryContent" placeholder="输入搜索信息..." class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>

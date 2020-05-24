@@ -93,18 +93,30 @@ export default new Router({
                 {
                   path:'/checkin_info_report',
                   component: () => import('../components/page/reportManage/checkin_info_report.vue'),
-                   meta: { title: '在住客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true}
+                   meta: { title: '入住客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
                 {
-                  path:'/bill_info_report',
-                  component: () => import('../components/page/reportManage/bill_info_report.vue'),
-                   meta: { title: '离店客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true }
+                  path:'/today_order_info',
+                  component: () => import('../components/page/reportManage/today_order_info.vue'),
+                   meta: { title: '当日预定客人报表',permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
                 {
-                  path:'/cost_info_report',
-                  component: () => import('../components/page/reportManage/cost_info_report.vue'),
-                   meta: { title: '财务进账报表',permission: true ,auth_admin:true ,auth_jinLi:true}
+                  path:'/today_checkin_info',
+                  component: () => import('../components/page/reportManage/today_checkin_info.vue'),
+                   meta: { title: '当日入住客人报表',permission: true ,auth_admin:true ,auth_jinLi:true}
                 },
+                
+                {
+                  path:'/today_bill_info',
+                  component: () => import('../components/page/reportManage/today_bill_info.vue'),
+                   meta: { title: '当日离店客人报表' ,permission: true ,auth_admin:true ,auth_jinLi:true }
+                },
+                {
+                  path:'/today_cost_info',
+                  component: () => import('../components/page/reportManage/today_cost_info.vue'),
+                   meta: { title: '当日财务进账报表',permission: true ,auth_admin:true ,auth_jinLi:true}
+                },
+
 
                 // 系统管理
                 {
