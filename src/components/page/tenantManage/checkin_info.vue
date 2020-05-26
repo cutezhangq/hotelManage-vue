@@ -23,12 +23,12 @@
                     class="handle-del mr10"
                 >查看客房信息</el-button>
                 </el-tooltip>
-                 <el-tooltip content="只能查询还未离店的入住订单" placement="top">
+                 <el-tooltip content="只能查询还未离店的入住订单。1为是，0为否" placement="top">
                     <el-button
                     type="info"
                     icon="el-icon-info"
                     class="handle-del mr10"
-                >备注</el-button>
+                >备注1</el-button>
                  </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">

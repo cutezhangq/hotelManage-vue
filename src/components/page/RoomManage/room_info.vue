@@ -174,6 +174,7 @@ export default {
   name: 'room_info',
   data() {
     return {
+      cur_status:'',
       query: {
         queryContent: '',
         queryName: '',
@@ -278,7 +279,7 @@ export default {
         get(`/dao.del_roomInfo?room_id=${cur_id}`)
         .then(data =>{
           if(data.code === 200){
-            this.$message.error(`删除了${this.tableData[index].type},1条数据`);
+            this.$message.error(`删除了${this.tableData[index].status},1条数据`);
             this.tableData.splice(index, 1);
             this.getDate();
           }

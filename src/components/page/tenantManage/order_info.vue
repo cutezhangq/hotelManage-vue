@@ -23,6 +23,13 @@
                     class="handle-del mr10"
                 >查看空房</el-button>
                  </el-tooltip>
+                      <el-tooltip content="新增-选择的roomInfo状态为 空房" placement="top">
+                    <el-button
+                    type="info"
+                    icon="el-icon-info"
+                    class="handle-del mr10"
+                  >备注</el-button>
+                 </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
                     <el-option key="1" label="预定单号" value="order_id"></el-option>

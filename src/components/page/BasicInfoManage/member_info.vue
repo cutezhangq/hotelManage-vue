@@ -298,7 +298,7 @@ export default {
           get(`/dao.del_memberInfo?member_id=${cur_id}`)
           .then(data =>{
             if(data.code === 200){
-              this.$message.error(`删除了${this.tableData[index].type},1条数据`);
+              this.$message.error(`删除了${this.tableData[index].name},1条数据`);
               this.tableData.splice(index, 1);
               this.getDate();
             }

@@ -14,7 +14,7 @@
           </div>
           <div class="user-info-list">
             上次登录时间：
-            <span>2020-05-23</span>
+            <span>2020-05-25</span>
           </div>
           <div class="user-info-list">
             上次登录地点：
@@ -156,7 +156,6 @@
     name: 'dashboard',
     data() {
       return {
-        role:'',
         value: new Date(),
         pv:134, //访问量
         mv:623, //消息量

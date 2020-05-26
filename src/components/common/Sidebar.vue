@@ -134,21 +134,21 @@ export default {
                             index: 'checkin_info_report',
                             title: '入住客人报表'
                         },
-                        {
-                            index: 'today_order_info',
-                            title: '今日预定客人报表'
-                        },
-                        {
-                            index: 'today_checkin_info',
-                            title: '今日入住客人报表'
-                        },
+                        // {
+                        //     index: 'today_order_info',
+                        //     title: '今日预定客人报表'
+                        // },
+                        // {
+                        //     index: 'today_checkin_info',
+                        //     title: '今日入住客人报表'
+                        // },
                         {
                             index: 'today_bill_info',
-                            title: '当日离店客人报表'
+                            title: '当日消费人数报表'
                         },
                         {
-                            index: 'today_cost_info',
-                            title: '当日财务进账报表'
+                            index: 'today_leavecustomers',
+                            title: '当日离店人数报表'
                         }
                     ]
                 },
@@ -233,11 +233,11 @@ export default {
                 //         }
                 //     ]
                 // },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
-                },
+                // {
+                //     icon: 'el-icon-lx-global',
+                //     index: 'i18n',
+                //     title: '国际化功能'
+                // },
                 // {
                 //     icon: 'el-icon-lx-warn',
                 //     index: '7',
