@@ -23,6 +23,13 @@
                     class="handle-del mr10"
                 >查看入住信息</el-button>
                 </el-tooltip>
+                <el-tooltip content="查询的是checkIn表，且时间要在范围内(leave_time要大于当前时间)" placement="top">
+                    <el-button
+                    type="info"
+                    icon="el-icon-info"
+                    class="handle-del mr10"
+                >备注</el-button>
+                 </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
                     <el-option key="1" label="账单ID" value="bill_id"></el-option>

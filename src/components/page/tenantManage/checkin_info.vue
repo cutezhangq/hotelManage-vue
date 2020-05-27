@@ -28,7 +28,7 @@
                     type="info"
                     icon="el-icon-info"
                     class="handle-del mr10"
-                >备注1</el-button>
+                >备注</el-button>
                  </el-tooltip>
                 <!-- 搜索 关键词 -->
                 <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
