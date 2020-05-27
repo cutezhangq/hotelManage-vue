@@ -11,24 +11,21 @@
             <!-- 表格的表头：表内容通过prop绑定数据 -->
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange">
+                <el-table-column prop="bill_id" label="账单ID" width="130" align="center"></el-table-column>
                 <el-table-column prop="checkin_id" label="入住单号" align="center"></el-table-column>
-                <el-table-column prop="old_room_id" label="旧房间号" align="center"></el-table-column>
-                <el-table-column prop="new_room_id" label="新房间号" align="center"></el-table-column>
+                <el-table-column prop="room_id" label="客房编号" align="center"></el-table-column>
                 <el-table-column prop="deposit" label="押金" align="center"></el-table-column>
-                <el-table-column prop="checkin_price" label="入住价格" align="center"></el-table-column>
-                <el-table-column prop="checkiner" label="客户姓名" align="center"></el-table-column>
-                <el-table-column prop="id_type" label="证件类别" align="center"></el-table-column>
-                <el-table-column prop="id_number" label="证件号码" align="center"></el-table-column>
-                <el-table-column prop="phone" label="联系电话" align="center"></el-table-column>
-                <el-table-column prop="arrivals_time" label="抵店时间" align="center"></el-table-column>
-                <el-table-column prop="leave_time" label="离店时间" align="center"></el-table-column>
-                <el-table-column prop="number" label="入住人数" align="center"></el-table-column>
-                <el-table-column prop="operator" label="操作员" align="center"></el-table-column>
-                <el-table-column prop="member_id" label="会员编号" align="center"></el-table-column>
-                <el-table-column prop="member_price" label="会员价格" align="center"></el-table-column>
-                <el-table-column prop="breakfast" label="是否提供早餐" align="center"></el-table-column>
-                <el-table-column prop="wake" label="是否定时叫醒" align="center"></el-table-column>
-                <el-table-column prop="order_to" label="是否是预定转入住" align="center"></el-table-column>
+                <el-table-column prop="checkin_price" label="入住房间价格" align="center"></el-table-column>
+                <el-table-column prop="days" label="入住天数" align="center"></el-table-column>
+                <el-table-column prop="accommodation_fee" label="总共房费" align="center"></el-table-column>
+                <el-table-column prop="in_store_consumption" label="店内消费" align="center"></el-table-column>
+                <el-table-column prop="real_income" label="应收费用" align="center"></el-table-column>
+                <el-table-column prop="income" label="客户付款" align="center"></el-table-column>
+                <el-table-column prop="return_money" label="找零" align="center"></el-table-column>
+                <el-table-column prop="return_deposit" label="应退押金" align="center"></el-table-column>
+                <el-table-column prop="pay_method" label="付款方式" align="center"></el-table-column>
+                <el-table-column prop="operator" label="操作员ID" align="center"></el-table-column>
+                <el-table-column prop="details" label="详情" align="center"></el-table-column>
             </el-table>
             <!-- 页码 -->
             <div class="pagination">
@@ -47,9 +44,10 @@
 
 <script>
 import {get,post} from '@/utils/request';
+import { fetchData } from '@/api/index';
 
 export default {
-    name: 'checkin_info_report',
+    name: 'today_bill_info',
     data() {
         return {
             query: {
@@ -73,8 +71,9 @@ export default {
       this.getDate();
     },
     methods: {
+        //获取roomType数据
         getDate(){
-          get(`/dao.showCheckinInfo?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
+          get(`/dao.showtodaybillInfo_reportform`)
           .then( data =>{
             if(data.code === 200){
               if(data.data.infoList.length > 0){
@@ -86,7 +85,6 @@ export default {
             }
           })
         },
-       
         // 分页导航
         handlePageChange(val) {
           //更新视图

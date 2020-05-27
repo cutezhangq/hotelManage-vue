@@ -22,6 +22,13 @@
                 class="handle-del mr10"
                 @click="addDate"
         >新增数据</el-button>
+          <el-tooltip content="只能删除 空房。价格传入[数值1,数值2]进行查询" placement="top">
+              <el-button
+              type="info"
+              icon="el-icon-info"
+              class="handle-del mr10"
+          >备注</el-button>
+          </el-tooltip>
         <!-- 搜索 关键词 -->
         <el-select v-model="query.queryName" placeholder="关键词" class="handle-select mr10">
           <el-option key="1" label="房间编号" value="room_id"></el-option>
@@ -174,6 +181,7 @@ export default {
   name: 'room_info',
   data() {
     return {
+      cur_status:'',
       query: {
         queryContent: '',
         queryName: '',
@@ -278,7 +286,7 @@ export default {
         get(`/dao.del_roomInfo?room_id=${cur_id}`)
         .then(data =>{
           if(data.code === 200){
-            this.$message.error(`删除了${this.tableData[index].type},1条数据`);
+            this.$message.error(`删除了${this.tableData[index].status},1条数据`);
             this.tableData.splice(index, 1);
             this.getDate();
           }

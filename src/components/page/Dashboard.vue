@@ -6,7 +6,7 @@
         <!-- 用户信息面板 -->
         <el-card shadow="hover" class="mgb20" style="height:252px;">
           <div class="user-info">
-            <img src="../../assets/img/img.jpg" class="user-avator" alt />
+            <img src="../../assets/img/user.jpg" class="user-avator" alt />
             <div class="user-info-cont">
               <div class="user-info-name">{{name}}</div>
               <div>{{role}}</div>
@@ -14,7 +14,7 @@
           </div>
           <div class="user-info-list">
             上次登录时间：
-            <span>2020-05-17</span>
+            <span>2020-05-25</span>
           </div>
           <div class="user-info-list">
             上次登录地点：
@@ -23,13 +23,7 @@
         </el-card>
         <!-- 进度条面板 -->
         <el-card shadow="hover" style="height:252px;">
-          <div slot="header" class="clearfix">
-            <span>进度</span>
-          </div>ES6
-          <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-          <el-progress :percentage="64.1" color="#f1e05a"></el-progress>CSS
-          <el-progress :percentage="43.7"></el-progress>HTML5
-          <el-progress :percentage="55.9" color="#f56c6c"></el-progress>
+          <div id="progressBar"></div>
         </el-card>
       </el-col>
       <!-- 第一行 右边 -->
@@ -102,13 +96,13 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-           <h2>{{ msg.AnimatBar_msg }}</h2>
+          <h2 class="title_table">{{ msg.AnimatBar_msg }}</h2>
           <div id="AnimatBar" style="margin-top: 10px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-          <h2>{{ msg.lineChart_msg }}</h2>
+          <h2 class="title_table">{{ msg.lineChart_msg }}</h2>
           <div id="lineChart" style="margin-top: 10px;"></div>
         </el-card>
       </el-col>
@@ -118,13 +112,13 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          <h2>{{ msg.keywords_msg }}</h2>
+          <h2 class="title_table">{{ msg.keywords_msg }}</h2>
           <div id="keywChart" style="margin-top: 25px;"></div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-           <h2>{{ msg.barChart_msg }}</h2>
+           <h2 class="title_table">{{ msg.barChart_msg }}</h2>
            <div id="barChart" style="margin-top: 25px;"></div>
         </el-card>
       </el-col>
@@ -161,27 +155,27 @@
         nv:579, //数量
         name: localStorage.getItem('ms_username'),
         todoList: [{
-            title: '今天要修复100个bug',
+            title: '直营酒店对检查结果制定实际可行的整改方审定批',
             status: false
           },
           {
-            title: '今天要修复100个bug',
+            title: '对于直营酒店汇报周报、月报、及各类工作事项进行一审阅批示。',
             status: false
           },
           {
-            title: '今天要写100行代码加几个bug吧',
+            title: '考核考评周期为每月一次,上月25日至本月26日,考评权重及结果将纳入月度绩效。',
             status: false
           },
           {
-            title: '今天要修复100个bug',
+            title: '直营酒店对考评结果分析,并组织团队进行总结',
             status: false
           },
           {
-            title: '今天要修复100个bug',
+            title: 'SJU酒店内容整改',
             status: true
           },
           {
-            title: '今天要写100行代码加几个bug吧',
+            title: '将直营酒店每月考评结果通过OA系统进行公布',
             status: true
           }
         ],
@@ -252,12 +246,24 @@
         ]
       };
     },
+    created(){
+      // this.headImg();
+    },
     computed: {
       role() {
-        return this.name === 'admin' ? '超级管理员' : '普通用户';
+        let authority = localStorage.getItem('authority');
+        if(authority == 1){
+          return this.role = '超级管理员';
+        }else if(authority == 2){
+          return this.role = '经理';
+        }else if(authority == 3){
+          return this.role = '酒店前台';
+        }
+        // return this.name === 'admin' ? '超级管理员' : '普通用户';
       },
     },
     mounted() {
+      this.init_progressBar();
       this.init_barChart();
       this.init_lineChart();
       this.init_keywords();
@@ -272,6 +278,87 @@
         });
       },
       
+      headImg(){
+        let authority = localStorage.getItem('authority');
+        if(authority == 1){
+          return this.headImg = '../../assets/img/user.jpg'
+        }else if(authority == 2){
+          return this.headImg = '../../assets/img/img.jpg'
+        }else if(authority == 3){
+          return this.headImg = '../../assets/img/img.jpg'
+        }
+      },
+
+      //进度条形图
+      init_progressBar(){
+        function getTypeColor(type) {
+          if (type === '全年销售额达标程度') { return '#1890ff'; }
+        }
+        const data = [
+          { class: '全年销售额达标程度', country: '第四季度', type: '1', value: 90.8 },
+          { class: '全年销售额达标程度', country: '第四季度', type: '2', value: 9.2 },
+          { class: '全年销售额达标程度', country: '第三季度', type: '1', value: 72.9 },
+          { class: '全年销售额达标程度', country: '第三季度', type: '2', value: 27.1 },
+          { class: '全年销售额达标程度', country: '第二季度', type: '1', value: 63.6 },
+          { class: '全年销售额达标程度', country: '第二季度', type: '2', value: 36.4 },
+          { class: '全年销售额达标程度', country: '第一季度', type: '1', value: 80.3 },
+          { class: '全年销售额达标程度', country: '第一季度', type: '2', value: 19.7 },
+        ];
+        const progress_chart = new this.$G2.Chart({
+          container: 'progressBar',
+          autoFit: true,
+          height: 230,
+          padding: [25, 25, 25, 70]
+        });
+
+        progress_chart.data(data);
+        progress_chart.legend(false);
+        progress_chart.tooltip({
+          showMarkers: false
+        });
+        progress_chart.facet('rect', {
+          fields: ['class'],
+          columnTitle: {
+            offsetY: -15,
+            style: {
+              fontSize: 14,
+              fontWeight: 300,
+              fill: '#404040e3'
+            }
+          },
+          eachView: (view, facet) => {
+            view.coordinate().transpose();
+
+            if (facet.columnIndex === 0) {
+              view.axis('country', {
+                tickLine: null,
+                line: null,
+              });
+              view.axis('value', false);
+            } else {
+              view.axis(false);
+            }
+            const color = getTypeColor(facet.columnValue);
+            view
+              .interval()
+              .adjust('stack')
+              .position('country*value')
+              .color('type', [color, '#ebedf0'])
+              .size(20)
+              .label('value*type', (value, type) => {
+                if (type === '2') {
+                  return null;
+                }
+                const offset = (value < 30) ? 10 : -4;
+                return {
+                  offset,
+                };
+              });
+            view.interaction('element-active');
+          }
+        });
+        progress_chart.render();
+      },
 
       //柱状图
       init_barChart() {
@@ -645,7 +732,12 @@
   .el-row {
     margin-bottom: 20px;
   }
-
+  .title_table{
+    text-align: center;
+    color: #404040e3;
+    font-size: 25px;
+    font-weight: 400;
+  }
   .grid-content {
     display: flex;
     align-items: center;
