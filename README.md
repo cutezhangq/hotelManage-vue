@@ -22,17 +22,17 @@
 
 ### 登录
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/登陆页面.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/登陆页面.png)
 
 ### 默认皮肤
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/系统首页1.png)
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/系统首页2.png)
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/系统首页3.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页1.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页2.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页3.png)
 
 ### 浅绿色皮肤
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/客房管理.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/客房管理.png)
 
 
 ## 特别鸣谢
