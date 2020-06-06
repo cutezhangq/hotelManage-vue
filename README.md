@@ -22,7 +22,7 @@
 
 ### 登录
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/登陆页面.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
 
 ### 默认皮肤
 
