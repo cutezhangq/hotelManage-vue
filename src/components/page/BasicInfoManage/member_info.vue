@@ -92,7 +92,7 @@
         </div>
 
         <!-- 新增弹出框 -->
-        <el-dialog title="新增" :visible.sync="addVisible" width="30%">
+        <el-dialog title="新增" :visible.sync="addVisible" :rules="rules" width="30%">
             <el-form ref="form" :model="add_form" label-width="70px">
                 <el-form-item label="姓名">
                     <el-input v-model="add_form.name"></el-input>
@@ -103,13 +103,13 @@
                 <el-form-item label="密码">
                     <el-input v-model="add_form.password"></el-input>
                 </el-form-item>
-                 <el-form-item label="电话">
+                 <el-form-item label="电话" prop="phone">
                     <el-input v-model="add_form.phone"></el-input>
                 </el-form-item>
                  <el-form-item label="地址">
                     <el-input v-model="add_form.address"></el-input>
                 </el-form-item>
-                 <el-form-item label="Email">
+                 <el-form-item label="Email" prop="email">
                     <el-input v-model="add_form.email"></el-input>
                 </el-form-item>
                  <el-form-item label="积分">
@@ -118,10 +118,10 @@
                  <el-form-item label="级别">
                     <el-input v-model="add_form.level"></el-input>
                 </el-form-item>
-                 <el-form-item label="最后入住时间">
+                 <el-form-item label="最后入住时间" prop="time0">
                     <el-input v-model="add_form.check_in_time"></el-input>
                 </el-form-item>
-                 <el-form-item label="最后预定时间">
+                 <el-form-item label="最后预定时间" prop="time1">
                     <el-input v-model="add_form.scheduled_time"></el-input>
                 </el-form-item>
                  <el-form-item label="备注">
@@ -135,7 +135,7 @@
         </el-dialog>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
+        <el-dialog title="编辑" :visible.sync="editVisible" :rules="rules" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
                 <el-form-item label="会员ID">
                     <el-input v-model="form.member_id" :disabled="true"></el-input>
@@ -149,13 +149,13 @@
                 <el-form-item label="密码">
                     <el-input v-model="form.password"></el-input>
                 </el-form-item>
-                 <el-form-item label="电话">
+                 <el-form-item label="电话" prop="phone">
                     <el-input v-model="form.phone"></el-input>
                 </el-form-item>
                  <el-form-item label="地址">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
-                 <el-form-item label="Email">
+                 <el-form-item label="Email" prop="email">
                     <el-input v-model="form.email"></el-input>
                 </el-form-item>
                  <el-form-item label="积分">
@@ -164,10 +164,10 @@
                  <el-form-item label="级别">
                     <el-input v-model="form.level"></el-input>
                 </el-form-item>
-                 <el-form-item label="最后入住时间">
+                 <el-form-item label="最后入住时间" prop="time0">
                     <el-input v-model="form.check_in_time"></el-input>
                 </el-form-item>
-                 <el-form-item label="最后预定时间">
+                 <el-form-item label="最后预定时间" prop="time1">
                     <el-input v-model="form.scheduled_time"></el-input>
                 </el-form-item>
                  <el-form-item label="备注">
@@ -189,6 +189,15 @@ import { fetchData } from '@/api/index';
 export default {
     name: 'member_info',
     data() {
+        let reg_phone = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/;
+        let is_phone = (rule,value,callback)=>{
+          if(!reg_phone.test(value)){
+             return callback( new Error(`请输入正确的电话号码`))
+          }else{
+            callback()
+          }
+        };
+
         return {
             query: {
                 queryContent: '',
@@ -217,13 +226,29 @@ export default {
               details: "",
             }, 
             idx: -1,  //当前修改条目的id
-            id: -1
+            id: -1,
+            rules: {
+              phone:[
+                 { required: true, message: '电话号码不能为空', trigger: 'blur' },
+                 { min: 7, max: 11, message: '长度在 7 到 11 个字符', trigger: 'blur' },
+                 { validator:is_phone}
+              ],
+              
+            }
         };
     },
     created() {
       this.getDate();
     },
+    watch:{
+      form: function(){
+        // let reg_phone = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/;
+        // this.form.phone = this.form.phone.match(reg_phone);
+        
+      }
+    },
     methods: {
+        
         //获取roomType数据
         getDate(){
           get(`/dao.show_memberInfo?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
