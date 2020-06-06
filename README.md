@@ -26,13 +26,13 @@
 
 ### 默认皮肤
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页1.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页2.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/系统首页3.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
 
 ### 浅绿色皮肤
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/screenshots/客房管理.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
 
 
 ## 特别鸣谢
