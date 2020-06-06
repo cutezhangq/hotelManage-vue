@@ -91,15 +91,15 @@ Finally,enter 'src/components/common/Sidebar.vue' and find el-menu Tags,delete '
 
 ### Login
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
 
 ### Home page
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
 
 ### Guest room management
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
 

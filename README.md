@@ -10,23 +10,23 @@
 基于 Vue + Element UI 的后台管理系统解决方案。
 
 
-[English document](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/README_EN.md)
+[English document](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/master/README_EN.md)
 
 ## 项目截图
 
 ### 登录
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
 
 ### 首页
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
 
 ### 客房管理
 
-![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/master/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
 
 
 ## 特别鸣谢
