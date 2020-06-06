@@ -6,31 +6,27 @@
   <a href="https://github.com/ElemeFE/element">
     <img src="https://img.shields.io/badge/element--ui-2.8.2-brightgreen.svg" alt="element-ui">
   </a>
-  <a href="https://github.com/lin-xin/vue-manage-system/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
-  </a>
-  <a href="https://github.com/lin-xin/vue-manage-system/releases">
-    <img src="https://img.shields.io/github/release/lin-xin/vue-manage-system.svg" alt="GitHub release">
-  </a>
 
 基于 Vue + Element UI 的后台管理系统解决方案。
 
 
-[English document](https://github.com/lin-xin/manage-system/blob/master/README_EN.md)
+[English document](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/dev-zq/README_EN.md)
 
 ## 项目截图
 
 ### 登录
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/wms3.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2.png)
 
-### 默认皮肤
+### 首页
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/wms1.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B51.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B52.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E7%B3%BB%E7%BB%9F%E9%A6%96%E9%A1%B53.png)
 
-### 浅绿色皮肤
+### 客房管理
 
-![Image text](https://github.com/lin-xin/manage-system/raw/master/screenshots/wms2.png)
+![Image text](https://gitee.com/zhuangzhoudekun/hotelManage-vue/raw/dev-zq/screenshots/%E5%AE%A2%E6%88%BF%E7%AE%A1%E7%90%86.png)
 
 
 ## 特别鸣谢
@@ -49,7 +45,7 @@
 -   [x] 表格
 -   [x] Tab 选项卡
 -   [x] 表单
--   [x] 图表 :bar_chart:
+-   [x] AntVG2图表 :bar_chart:
 -   [x] 富文本编辑器
 -   [x] markdown 编辑器
 -   [x] 图片拖拽/裁剪上传
@@ -76,95 +72,9 @@ npm run serve
 npm run build
 ```
 
-## 组件使用说明与演示
-
-### vue-schart
-
-vue.js 封装 sChart.js 的图表组件。访问地址：[vue-schart](https://github.com/linxin/vue-schart)
-
-<p><a href="https://www.npmjs.com/package/vue-schart"><img src="https://img.shields.io/npm/dm/vue-schart.svg" alt="Downloads"></a></p>
-
-```html
-<template>
-    <div>
-        <schart class="wrapper" canvasId="myCanvas" :options="options"></schart>
-    </div>
-</template>
-
-<script>
-    import Schart from 'vue-schart'; // 导入Schart组件
-    export default {
-        data() {
-            return {
-                options: {
-                    type: 'bar',
-                    title: {
-                        text: '最近一周各品类销售图'
-                    },
-                    labels: ['周一', '周二', '周三', '周四', '周五'],
-                    datasets: [
-                        {
-                            label: '家电',
-                            data: [234, 278, 270, 190, 230]
-                        },
-                        {
-                            label: '百货',
-                            data: [164, 178, 190, 135, 160]
-                        },
-                        {
-                            label: '食品',
-                            data: [144, 198, 150, 235, 120]
-                        }
-                    ]
-                }
-            };
-        },
-        components: {
-            Schart
-        }
-    };
-</script>
-<style>
-    .wrapper {
-        width: 7rem;
-        height: 5rem;
-    }
-</style>
-```
-
 ## 其他注意事项
 
-### 一、如果我不想用到上面的某些组件呢，那我怎么在模板中删除掉不影响到其他功能呢？
-
-举个栗子，我不想用 Vue-Quill-Editor 这个组件，那我需要分四步走。
-
-第一步：删除该组件的路由，在目录 src/router/index.js 中，找到引入改组件的路由，删除下面这段代码。
-
-```JavaScript
-{
-    // 富文本编辑器组件
-    path: '/editor',
-    component: resolve => require(['../components/page/VueEditor.vue'], resolve)
-},
-```
-
-第二步：删除引入该组件的文件。在目录 src/components/page/ 删除 VueEditor.vue 文件。
-
-第三步：删除该页面的入口。在目录 src/components/common/Sidebar.vue 中，找到该入口，删除下面这段代码。
-
-```js
-{
-	index: 'editor',
-	title: '富文本编辑器'
-},
-```
-
-第四步：卸载该组件。执行以下命令：
-npm un vue-quill-editor -S
-
-完成。
-
-### 二、如何切换主题色呢？
+### 一、如何切换主题色呢？
 
 第一步：打开 src/main.js 文件，找到引入 element 样式的地方，换成浅绿色主题。
 
