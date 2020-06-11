@@ -14,7 +14,7 @@
           </div>
           <div class="user-info-list">
             上次登录时间：
-            <span>2020-05-25</span>
+            <span>2020-06-11</span>
           </div>
           <div class="user-info-list">
             上次登录地点：
@@ -23,13 +23,6 @@
         </el-card>
         <!-- 进度条面板 -->
         <el-card shadow="hover" style="height:252px;">
-          <!-- <div slot="header" class="clearfix">
-            <span>效率进度</span>
-          </div>第一季度
-          <el-progress :percentage="71.3" color="#42b983"></el-progress>第二季度
-          <el-progress :percentage="64.1" color="#f1e05a"></el-progress>第三季度
-          <el-progress :percentage="43.7"></el-progress>第四季度
-          <el-progress :percentage="55.9" color="#f56c6c"></el-progress> -->
           <div id="progressBar"></div>
         </el-card>
       </el-col>

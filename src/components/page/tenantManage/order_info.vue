@@ -16,11 +16,12 @@
                     class="handle-del mr10"
                     @click="addDate"
                 >新增数据</el-button>
-                 <el-tooltip content="暂未开放，请前往客房管理查看" placement="top">
-                    <el-button
+                 <el-tooltip content="将前往客房管理查看" placement="top">
+                  <el-button
                     type="primary"
                     icon="el-icon-office-building"
                     class="handle-del mr10"
+                    @click="ToRoom_info()"
                 >查看空房</el-button>
                  </el-tooltip>
                       <el-tooltip content="新增-选择的roomInfo状态为 空房" placement="top">
@@ -264,6 +265,9 @@ export default {
       this.getDate();
     },
     methods: {
+        ToRoom_info(){
+          this.$router.push({path:'/room_info',query:{searchKey:'status',searchValue:'空房'}});
+        },
         getDate(){
           get(`/dao.show_orderInfo?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
           .then( data =>{
