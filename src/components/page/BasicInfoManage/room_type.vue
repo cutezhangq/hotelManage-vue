@@ -46,12 +46,10 @@
                 <el-table-column prop="type" label="客房类型名" align="center"></el-table-column>
                 <el-table-column prop="number" label="额定人数" align="center"></el-table-column>
                 <el-table-column prop="details" label="客房描述" align="center"></el-table-column>
-                <el-table-column label="客房图片" align="center">
-                  <el-image style="width: 100px; height: 100px"
-                    :src="room_type_img"
-                    :preview-src-list="srcList"
-                    >
-                  </el-image>
+                <el-table-column label="客房图片" align="center"> 
+                  <template slot-scope="scope">
+                    <img :src="scope.row.room_type_img" class="head_pic" style="width: 100px; height: 100px"/>
+                  </template>
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -153,12 +151,6 @@ export default {
             }, 
             idx: -1,  //当前修改条目的id
             id: -1,
-            srcList:[
-              'http://suo.im/5SSjNN',
-              'http://suo.im/5TCWc0',
-              'http://suo.im/6v9NkN',
-              'http://suo.im/6199GP'
-            ]
         };
     },
     created() {
