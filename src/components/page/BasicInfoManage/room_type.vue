@@ -46,7 +46,11 @@
                 <el-table-column prop="type" label="客房类型名" align="center"></el-table-column>
                 <el-table-column prop="number" label="额定人数" align="center"></el-table-column>
                 <el-table-column prop="details" label="客房描述" align="center"></el-table-column>
-
+                <el-table-column label="客房图片" align="center"> 
+                  <template slot-scope="scope">
+                    <img :src="scope.row.room_type_img" class="head_pic" style="width: 100px; height: 100px"/>
+                  </template>
+                </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -146,7 +150,7 @@ export default {
               details: "",
             }, 
             idx: -1,  //当前修改条目的id
-            id: -1
+            id: -1,
         };
     },
     created() {

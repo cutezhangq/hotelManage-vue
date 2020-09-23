@@ -206,15 +206,33 @@ export default {
         details: "",
       },
       idx: -1,  //当前修改条目的id
-      id: -1
+      id: -1,
+      getquery:this.$route.query
     };
   },
   created() {
     this.getDate();
   },
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => {
+  //     if (from.path == "/order_info") {
+  //       var flag; 
+  //       flag = true;
+  //       console.log('进入路由守卫！');
+  //       // this.query.queryName = this.getquery.searchKey;
+  //       // this.query.queryContent = this.getquery.searchValue;
+  //     }       
+  //   })
+  // },
   methods: {
     //获取roomType数据
     getDate(){
+      // if(this.flag){
+      //   console.log('执行了。。');
+      //   this.query.queryName = 'status';
+      //   this.query.queryContent = '空房';
+      // }
+      // console.log('this.flag。。',this.flag);
       get(`/dao.show_roomInfo?index=${this.query.pageIndex}&${this.query.queryName}=${this.query.queryContent}`)
               .then( data =>{
                 if(data.code === 200){
