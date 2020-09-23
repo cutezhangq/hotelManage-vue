@@ -9,7 +9,6 @@
 
 基于 Vue + Element UI 的后台管理系统解决方案。
 
-
 [English document](https://gitee.com/zhuangzhoudekun/hotelManage-vue/blob/master/README_EN.md)
 
 ## 项目截图
