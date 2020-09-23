@@ -17,6 +17,8 @@
     "http-proxy": "^1.18.1",
     "lodash": "^4.17.20",
     "mavon-editor": "^2.6.17",
+    "node-forge": "^0.10.0",
+    "serialize-javascript": "^5.0.1",
     "vue": "^2.6.10",
     "vue-cropperjs": "^3.0.0",
     "vue-i18n": "^8.10.0",
