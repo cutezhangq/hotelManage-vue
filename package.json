@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.11.0",
-    "elliptic": "^6.5.3",
+    "elliptic": "^6.5.4",
     "http-proxy": "^1.18.1",
     "lodash": "^4.17.20",
     "mavon-editor": "^2.6.17",
