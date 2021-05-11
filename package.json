@@ -15,7 +15,7 @@
     "element-ui": "^2.11.0",
     "elliptic": "^6.5.3",
     "http-proxy": "^1.18.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mavon-editor": "^2.6.17",
     "node-forge": "^0.10.0",
     "serialize-javascript": "^5.0.1",
